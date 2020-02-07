@@ -16,11 +16,13 @@ class Kadernik {
 }
 
 class Zarizeni {
-    constructor(){
-        id = String (Math.random()) + String (Math.random());
-    }
     id;
-
+    constructor(){
+        this.id = String (Math.random()) + String (Math.random());
+    }
+    rezim;
+    
+    
 }
 
 class Server {
@@ -31,17 +33,20 @@ class Server {
 class DatabazeTelefon {
     //v každém telefonu existuje databáze
     VyzvZarizeni(){
-        var ret = localStorage["ZaznamZarizeni"];
-        if (ret){
-            return ret;
+        var json = localStorage["ZaznamZarizeni"];
+        if (json){
+            var zarizeni = Object.assign(new Zarizeni(), JSON.parse(json))
+            return zarizeni;
         }
         else {
-            return new Zarizeni;
+            var noveZarizeni =  new Zarizeni();
+            this.UlozZarizeni(noveZarizeni);
+            return noveZarizeni;
         }
     }
 
     UlozZarizeni(zarizeni){
-        localStorage["ZaznamZarizeni"] = zarizeni;
+        localStorage["ZaznamZarizeni"] = JSON.stringify(zarizeni, null, 4);
     }
 
 }
@@ -51,7 +56,45 @@ class DatabazeServer {
     
 }
 
+function ZobrazHTML(html){
+    document.querySelector("#obrazovka").innerHTML=html
+}
+
+function ObrazovkaRozhodnuti(){
+    html = `
+    <button onclick='zapniRezimKadernik()'>Jsem kadeřník</button>
+    <button onclick='zapniRezimZakaznik()'>Jsem zákazník</button>
+    `
+    ZobrazHTML(html)    
+}
+
+function zapniRezimKadernik() {
+    zarizeni.rezim = "kadernik"
+    db.UlozZarizeni(zarizeni)
+}
+
+function zapniRezimZakaznik() {
+    zarizeni.rezim = "zakaznik"
+    db.UlozZarizeni(zarizeni)
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------
 //spuštění aplikace kadeřníkem
 //podívat se do databáze, jestli existují nějaké informace
 const db = new DatabazeTelefon();
 const zarizeni = db.VyzvZarizeni();
+console.log(zarizeni);
+if (zarizeni.rezim){
+    if(zarizeni.rezim==="kadernik"){
+        console.log("rezim kadenik")
+
+    }
+    else {
+        console.log("rezim zakaznik")
+        
+    }
+}
+else{
+    console.log("rezmi neurcen");
+    ObrazovkaRozhodnuti();
+}
