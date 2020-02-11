@@ -59,20 +59,24 @@ function ZobrazHTML(html){
 
 function ObrazovkaRozhodnuti(){
     html = `
-    <button onclick='zpracujUdalost("c")'>Jsem kadeřník</button>
+    <button onclick='zpracujUdalost("zapniRezimZakaznik")'>Jsem kadeřník</button>
     <button onclick='zpracujUdalost("zapniRezimKadernik")'>Jsem zákazník</button>
     `
     ZobrazHTML(html)    
 }
 
 function zapniRezimKadernik() {
+    const zarizeni = db.VyzvZarizeni();
     zarizeni.rezim = "kadernik"
     db.UlozZarizeni(zarizeni)
+    console.log(zarizeni.rezim)
 }
 
 function zapniRezimZakaznik() {
+    const zarizeni = db.VyzvZarizeni();
     zarizeni.rezim = "zakaznik"
     db.UlozZarizeni(zarizeni)
+    console.log(zarizeni.rezim)
 }
 
 // jak pracuje aplikace v prohlizeci
@@ -115,10 +119,11 @@ function spusteniAplikace(){
 
 // funkce, ktera zajistuje spravne rozdelovani zpracovani udalosti - rozcestnik
 function zpracujUdalost(udalost){
-    console.log(`Zpracovacam udalost ${udalost}`);
+    console.log(`Zpracovacam udalost ${udalost} jdu na to`);
     switch (udalost) {
         case "spusteniAplikace":
             spusteniAplikace();
+            break;
         case "zapniRezimKadernik": 
             zapniRezimKadernik();
             break;
@@ -131,9 +136,30 @@ function zpracujUdalost(udalost){
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------
-//spuštění aplikace kadeřníkem
-//podívat se do databáze, jestli existují nějaké informace
+//spuštění aplikace
 
 zpracujUdalost("spusteniAplikace")
 
+// osoba = {
+//    jmeno: "Vit",
+//    prijmeni: "Rasekl",
+//    vyska: 185,
+//    zenaty: false,
+//    vysvedceni: {
+//        matematika: 3,
+//        telocvik: 1 ,
+//        ps: "N"
+//    }
+// }
 
+// osoba.jmeno="ivanosss"
+
+
+`
+<h2>Zakazni</h2>
+        <p>Email: ${zakaznik.email}</p>
+        <h3>Historie</h3>
+        sdfsdfsdfsdf<br>
+        sdfsdfsdfsdfsd<br>
+
+`
