@@ -57,21 +57,72 @@ function ZobrazHTML(html){
     document.querySelector("#obsah").innerHTML=html
 }
 
+function ObrazovkaHomepageZakaznik(){
+
+    html=`
+    <button>Začít používat</button>
+    <p>Aktivní požadavky</p>
+    <p>Historie</p>
+    `
+    ZobrazHTML(html)
+}
+
+function ObrazovkaHomepageKadernik(){
+
+    html=`
+    <button>Začít používat</button>
+    <button>Dát o sobě vědět</button>
+    <p>Hodnocení</p>
+    `
+    ZobrazHTML(html)
+}
+
 function ObrazovkaRozhodnuti(){
     html = `
     <div class="Obrazovka" id="ObrazovkaRozhodnuti">
-    <button onclick='zpracujUdalost("zapniRezimZakaznik")' id="TlacitkoZaznik">Jsem kadeřník</button>
-    <button onclick='zpracujUdalost("zapniRezimKadernik")' id="TlacitkKadernik">Jsem zákazník</button> 
+    <button onclick='zpracujUdalost("zapniRezimZakaznik")' id="TlacitkoZaznik">Jsem zákazník</button>
+    <button onclick='zpracujUdalost("zapniRezimKadernik")' id="TlacitkKadernik">Jsem kadeřník</button> 
     </div>
     `
     ZobrazHTML(html)    
 }
+function ObrazovkaZadostKlient(){
+    html = `
+    <div class="Obrazovka" id="ObrazovkaZadostKlient">
+    <p>Tel. číslo/E-mail</p>
+    <input type="text">
+    <p>Cenové rozmezí</p>
+    <input type="number">
+    <p>Vzdálenost</p>
+    <input type="number">
+    <button onlick>Vyhledat</button>
+    <button onlick>Domů</button>
+    <button onlick>Zpět</button>
+    </div>
+    `
+    ZobrazHTML(html)
+
+}
+
+
+function ObrazovkaKadernikRegLog(){
+    html=`
+    <div class="Obrazovka" id="ObrazovkaKadernikRegLog">
+    <p>zadek</p>  
+    </div>
+    `
+    ZobrazHTML(html)
+}
+
+
 
 function zapniRezimKadernik() {
     const zarizeni = db.VyzvZarizeni();
     zarizeni.rezim = "kadernik"
     db.UlozZarizeni(zarizeni)
     console.log(zarizeni.rezim)
+    ObrazovkaKadernikRegLog()
+
 }
 
 function zapniRezimZakaznik() {
@@ -79,6 +130,7 @@ function zapniRezimZakaznik() {
     zarizeni.rezim = "zakaznik"
     db.UlozZarizeni(zarizeni)
     console.log(zarizeni.rezim)
+    ObrazovkaZadostKlient()
 }
 
 // jak pracuje aplikace v prohlizeci
@@ -108,9 +160,11 @@ function spusteniAplikace(){
     if (zarizeni.rezim){
         if(zarizeni.rezim==="kadernik"){
             console.log("rezim kadenik")
+            ObrazovkaHomepageKadernik()
         }
         else {
             console.log("rezim zakaznik")
+            ObrazovkaHomepageZakaznik()
         }
     }
     else{
@@ -136,6 +190,7 @@ function zpracujUdalost(udalost){
             console.warn(`Neznama odalost ${udalost}`);
     }
 }
+
 
 //-----------------------------------------------------------------------------------------------------------------------------------
 //spuštění aplikace
