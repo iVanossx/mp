@@ -1,3 +1,8 @@
+
+
+
+
+
 .Obrazovka {
     background-color: blue;
     padding: 10px;
@@ -11,10 +16,18 @@
 
     
 }
-#TlacitkoZaznik{
+#ObrazovkaRozhodnuti button{
     background-color: #66ff33;
     width: 90vw;
     height: 30vh;
+    margin: 10px;
+    
     
 
+}
+#ObrazovkaRozhodnuti{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
