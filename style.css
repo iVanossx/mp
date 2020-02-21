@@ -1,0 +1,20 @@
+.Obrazovka {
+    background-color: blue;
+    padding: 10px;
+}
+#obsah {
+    padding-top: 20px;
+    border-width: 3px;
+    border-color: red;
+    border-style: dotted;
+    border-radius: 5px;
+
+    
+}
+#TlacitkoZaznik{
+    background-color: #66ff33;
+    width: 90vw;
+    height: 30vh;
+    
+
+}

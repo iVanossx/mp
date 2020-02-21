@@ -54,13 +54,15 @@ class DatabazeServer {
 }
 
 function ZobrazHTML(html){
-    document.querySelector("#obrazovka").innerHTML=html
+    document.querySelector("#obsah").innerHTML=html
 }
 
 function ObrazovkaRozhodnuti(){
     html = `
-    <button onclick='zpracujUdalost("zapniRezimZakaznik")'>Jsem kadeřník</button>
-    <button onclick='zpracujUdalost("zapniRezimKadernik")'>Jsem zákazník</button>
+    <div class="Obrazovka" id="ObrazovkaRozhodnuti">
+    <button onclick='zpracujUdalost("zapniRezimZakaznik")' id="TlacitkoZaznik">Jsem kadeřník</button>
+    <button onclick='zpracujUdalost("zapniRezimKadernik")' id="TlacitkKadernik">Jsem zákazník</button> 
+    </div>
     `
     ZobrazHTML(html)    
 }
@@ -145,7 +147,7 @@ zpracujUdalost("spusteniAplikace")
 //    prijmeni: "Rasekl",
 //    vyska: 185,
 //    zenaty: false,
-//    vysvedceni: {
+//    vysvedceni: 
 //        matematika: 3,
 //        telocvik: 1 ,
 //        ps: "N"
@@ -153,13 +155,3 @@ zpracujUdalost("spusteniAplikace")
 // }
 
 // osoba.jmeno="ivanosss"
-
-
-`
-<h2>Zakazni</h2>
-        <p>Email: ${zakaznik.email}</p>
-        <h3>Historie</h3>
-        sdfsdfsdfsdf<br>
-        sdfsdfsdfsdfsd<br>
-
-`
