@@ -1,4 +1,3 @@
-alert("loading js")
 
 class Zakaznik {
     id;             //jednoznačný identifikátor
@@ -347,9 +346,7 @@ function loguj(zprava){
 //-----------------------------------------------------------------------------------------------------------------------------------
 //spuštění aplikace
 
-window.addEventListener('load', function() {
-    zpracujUdalost("spusteniAplikace")
-})
+
 
 // osoba = {
 //    jmeno: "Vit",
