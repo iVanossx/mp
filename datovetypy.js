@@ -1,4 +1,4 @@
-
+/*
 class Zakaznik {
     id;             //jednoznačný identifikátor
     email;
@@ -23,6 +23,7 @@ class Zarizeni {
     }
     rezim;    
 }
+
 
 class Server {
 
@@ -54,6 +55,13 @@ class DatabazeServer {
     //na serveru existuje jedna databáze
 }
 
+*/
+
+function vytvorNoveZarizeni(){
+    return {
+        id:  String (Math.random()) + String (Math.random()),
+    }
+}
 
 
 //---ZÁKAZNÍK---
@@ -261,7 +269,25 @@ function zapniRezimZakaznik() {
 // Server
 // - pomoci tridy server se simuluje centralni server
 
-const db = new DatabazeTelefon();
+const db = {
+    VyzvZarizeni: function (){
+        var json = localStorage["ZaznamZarizeni"];
+        if (json){
+            var zarizeni = JSON.parse(json)
+            return zarizeni;
+        }
+        else {
+            var noveZarizeni =  vytvorNoveZarizeni();
+            this.UlozZarizeni(noveZarizeni);
+            return noveZarizeni;
+        }
+    },
+
+    UlozZarizeni: function (zarizeni){
+        localStorage["ZaznamZarizeni"] = JSON.stringify(zarizeni, null, 4);
+    }
+   
+}
 
 function spusteniAplikace(){
     const zarizeni = db.VyzvZarizeni();
