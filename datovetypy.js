@@ -53,6 +53,9 @@ class DatabazeServer {
     //na serveru existuje jedna databáze
 }
 
+
+
+//---ZÁKAZNÍK---
 function ZobrazHTML(html){
     document.querySelector("#obsah").innerHTML=html
 }
@@ -60,13 +63,80 @@ function ZobrazHTML(html){
 function ObrazovkaHomepageZakaznik(){
 
     html=`
-    <button>Začít používat</button>
+    <button onclick='zpracujUdalost("ZacitPouzivat")'>Začít používat</button>
     <p>Aktivní požadavky</p>
     <p>Historie</p>
     `
     ZobrazHTML(html)
 }
 
+function ObrazovkaZadostKlient(){
+    html = `
+    <div class="Obrazovka" id="ObrazovkaZadostKlient">
+    <p>Tel. číslo/E-mail</p>
+    <input type="text">
+    <p>Cenové rozmezí</p>
+    <input type="number">
+    <p>Vzdálenost v m </p>
+    <input type="number">
+    <button onclick='zpracujUdalost("VyhledatKadernictvi")'>Vyhledat</button>
+    <button onclick='zpracujUdalost("Domu")'>Domů</button>
+    <button onclick>Zpět</button>
+    </div>
+    `
+    ZobrazHTML(html)
+
+}
+
+
+function ObrazovkaOdeslaniZadosti(){
+    html=`
+    <div class="Obrazovka" id="ObrazovkaOdeslaniZadosti">
+    <h3>Nazev kadeřnictví</h3>
+    <p>Nazev, cena, atd.</p>
+    <p>Požadavek</p>
+    <input type="text">
+    <p>V kolik</p>
+    <input type="time">
+    <button id="OdeslatZadost">Odeslat žádost</button>
+    <button onlick>Domů</button>
+    <button onlick>Zpět</button>
+    </div>
+    `
+
+}
+
+function ObrazovkaPotvzeniZadosti(){
+    html=`
+    <div class="Obrazovka" id="ObrazovkaPovtzeniZadosti">
+    <p>Zpráva o vyřízení nebo zamítnutí žádosti</p>
+    <button id="Prijdu">Přijdu</button>
+    <button id="Neprijdu">Nepřijdu</button>
+    <p>Doba příchodu</p>
+    <input type="time">
+    <button onlick>Domů</button>
+    <button onlick>Zpět</button>
+    </div>
+    `
+
+}
+
+function ObrazovkaHodnoceni(){
+    html=`
+    <div class"Obrazovka" id="ObrazovkaHodnoceni">
+    <h3>Název kadeřnictví</h3>
+    <p>Napiš nám recenzi</p>
+    <input type="text">
+    <p>Ohodnoť hvězdami</p>
+    <p>Nejaké hodnotítko</p>
+    </div>
+    `
+
+
+}
+
+
+//----KADEŘNÍK---
 function ObrazovkaHomepageKadernik(){
 
     html=`
@@ -86,18 +156,37 @@ function ObrazovkaRozhodnuti(){
     `
     ZobrazHTML(html)    
 }
-function ObrazovkaZadostKlient(){
-    html = `
-    <div class="Obrazovka" id="ObrazovkaZadostKlient">
-    <p>Tel. číslo/E-mail</p>
+
+
+
+function ObrazovkaKadernikRegLog(){
+    html=`
+    <div class="Obrazovka" id="ObrazovkaKadernikRegLog">
+    <button id="RegistraceProvozovny">Registrovat provozovnu</button>
+    <button id="PripojitSe">Připojit se předchozí registrace</button>
+    <button onclick='zpracujUdalost("Domu")'>Domů</button>
+    <button id"Zpet">Zpět</button>
+    </div>
+    `
+    ZobrazHTML(html)
+}
+
+
+function ObrazovkaRegKadernictvi(){
+    html=`
+    <div class="Obrazovka" id="ObrazovkaRegKadernictvi">
+    <p>E-mail</p>
+    <input type="email">
+    <p>Heslo</p>
+    <input type="password">
+    <p>Heslo znovu</p>
+    <input type="password">
+    <p>Adresa provozovny</p>
     <input type="text">
-    <p>Cenové rozmezí</p>
-    <input type="number">
-    <p>Vzdálenost</p>
-    <input type="number">
-    <button onlick>Vyhledat</button>
-    <button onlick>Domů</button>
-    <button onlick>Zpět</button>
+    <p>Název provozovny</p>
+    <button id="ZaregistrovatSe">Zaregistrovat se</button>
+    <button id="Domu">Domů</button>
+    <button id"Zpet">Zpět</button>
     </div>
     `
     ZobrazHTML(html)
@@ -105,13 +194,32 @@ function ObrazovkaZadostKlient(){
 }
 
 
-function ObrazovkaKadernikRegLog(){
+function ObrazovkaLoginKadernictvi(){
     html=`
-    <div class="Obrazovka" id="ObrazovkaKadernikRegLog">
-    <p>zadek</p>  
+    <div class="Obrazovka" id="ObrazovkaLoginKadernictvi">
+    <p>Email</p>
+    <input type="email">
+    <p>Heslo</p>
+    <input type="password">
+    <button id="PrihlasitSe">Přihlísit se</button>
+    
     </div>
     `
     ZobrazHTML(html)
+}
+
+function ObrazovkaOdpovedZadostKadernik(){
+    html=`
+    <div class="Obrazovka" id="ObrazovkaOdpovedZadostKadernik">
+    <p>Zobrazeni žádosti</p>
+    <button id="PrijetiZadosti">Přijmout</button>
+    <button id="OdmitnoutZadost">Odmítnout</button>
+    <button id="Domu">Domů</button>
+    <button id"Zpet">Zpět</button>
+    </div>
+    `
+
+
 }
 
 
@@ -186,9 +294,42 @@ function zpracujUdalost(udalost){
         case "zapniRezimZakaznik": 
             zapniRezimZakaznik();
             break;
+        case "ZacitPouzivat":
+            ZacitPouzivat();
+            break;
+        case "VyhledatKadernictvi":
+            VyhledatKadernictvi();
+            break;
+        case "Domu":
+            Domu();
+            break;
         default:
             console.warn(`Neznama odalost ${udalost}`);
     }
+}
+
+function ZacitPouzivat (){
+
+    ObrazovkaZadostKlient()
+}
+
+function VyhledatKadernictvi(){
+
+    console.log("Nic tu není")
+}
+
+function Domu() {
+
+    const zarizeni = db.VyzvZarizeni()
+    console.log(zarizeni)
+    if (zarizeni.rezim==="zakaznik") {
+
+        ObrazovkaHomepageZakaznik()
+    }   
+    else {
+        ObrazovkaHomepageKadernik()
+    }
+        
 }
 
 
