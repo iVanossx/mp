@@ -284,6 +284,7 @@ function spusteniAplikace(){
 // funkce, ktera zajistuje spravne rozdelovani zpracovani udalosti - rozcestnik
 function zpracujUdalost(udalost){
     console.log(`Zpracovacam udalost ${udalost} jdu na to`);
+    loguj(`Zpracovacam udalost ${udalost} jdu na to`);
     switch (udalost) {
         case "spusteniAplikace":
             spusteniAplikace();
@@ -330,6 +331,14 @@ function Domu() {
         ObrazovkaHomepageKadernik()
     }
         
+}
+
+function loguj(zprava){
+
+    const radek = document.createElement("p")
+    radek.textContent = zprava
+    document.querySelector("#loguj").appendChild(radek)
+    
 }
 
 
