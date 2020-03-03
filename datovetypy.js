@@ -345,7 +345,9 @@ function loguj(zprava){
 //-----------------------------------------------------------------------------------------------------------------------------------
 //spuštění aplikace
 
-zpracujUdalost("spusteniAplikace")
+window.addEventListener('load', function() {
+    zpracujUdalost("spusteniAplikace")
+})
 
 // osoba = {
 //    jmeno: "Vit",
@@ -359,5 +361,3 @@ zpracujUdalost("spusteniAplikace")
 //    }
 // }
 
-// osoba.jmeno="ivanosss"
-document.write("xxxx")
