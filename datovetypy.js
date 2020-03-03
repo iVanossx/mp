@@ -1,3 +1,5 @@
+alert("loading js")
+
 class Zakaznik {
     id;             //jednoznačný identifikátor
     email;
