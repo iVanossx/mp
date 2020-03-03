@@ -360,3 +360,4 @@ zpracujUdalost("spusteniAplikace")
 // }
 
 // osoba.jmeno="ivanosss"
+document.write("xxxx")
