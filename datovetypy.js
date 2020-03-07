@@ -132,7 +132,7 @@ function ObrazovkaPotvzeniZadosti(){
 
 function ObrazovkaHodnoceni(){
     html=`
-    <div class"Obrazovka" id="ObrazovkaHodnoceni">
+    <div class="Obrazovka" id="ObrazovkaHodnoceni">
     <h3>Název kadeřnictví</h3>
     <p>Napiš nám recenzi</p>
     <input type="text">
@@ -149,8 +149,8 @@ function ObrazovkaHodnoceni(){
 function ObrazovkaHomepageKadernik(){
 
     html=`
-    <button>Začít používat</button>
-    <button>Dát o sobě vědět</button>
+    <button onclick='zpracujUdalost("ZacitPouzivat")'>Začít používat</button>
+    <button onclick='zpracujUdalost("DatOSobeVedet")'>Dát o sobě vědět</button>
     <p>Hodnocení</p>
     `
     ZobrazHTML(html)
@@ -171,10 +171,10 @@ function ObrazovkaRozhodnuti(){
 function ObrazovkaKadernikRegLog(){
     html=`
     <div class="Obrazovka" id="ObrazovkaKadernikRegLog">
-    <button id="RegistraceProvozovny">Registrovat provozovnu</button>
-    <button id="PripojitSe">Připojit se předchozí registrace</button>
+    <button onclick='zpracujUdalost("RegistrovatProvozovnu")' id="Registrovat provozovnu">Registrovat provozovnu</button>
+    <button onclick='zpracujUdalost("PripojitSePredchoziRegistrace")' id="PripojitSe">Připojit se předchozí registrace</button>
     <button onclick='zpracujUdalost("Domu")'>Domů</button>
-    <button id"Zpet">Zpět</button>
+    <button id"Zpet">Zpět</button>  
     </div>
     `
     ZobrazHTML(html)
@@ -331,6 +331,15 @@ function zpracujUdalost(udalost){
         case "Domu":
             Domu();
             break;
+        case "ZacitPouzivat":
+            ZacitPouzivat();
+            break;
+        case "RegistrovatProvozovnu":
+            RegistrovatProvozovnu();
+            break;
+        case "PripojitSePredchoziRegistrace":
+            PripojitSePredchoziRegistrace()
+            break;
         default:
             console.warn(`Neznama odalost ${udalost}`);
     }
@@ -366,6 +375,22 @@ function loguj(zprava){
     radek.textContent = zprava
     document.querySelector("#loguj").appendChild(radek)
     
+}
+
+
+function RegistrovatProvozovnu(){
+
+    ObrazovkaRegKadernictvi()    
+}
+
+function ZacitPouzivat(){
+
+    ObrazovkaKadernikRegLog()
+}
+
+function PripojitSePredchoziRegistrace(){
+
+    ObrazovkaLoginKadernictvi()
 }
 
 
