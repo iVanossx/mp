@@ -247,6 +247,8 @@ function ObrazovkaOznameniOVolnu(){
 }
 
 
+
+
 function zapniRezimKadernik() {
     const zarizeni = db.VyzvZarizeni();
     zarizeni.rezim = "kadernik"
