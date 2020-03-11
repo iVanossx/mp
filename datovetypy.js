@@ -174,7 +174,7 @@ function ObrazovkaKadernikRegLog(){
     <button onclick='zpracujUdalost("RegistrovatProvozovnu")' id="Registrovat provozovnu">Registrovat provozovnu</button>
     <button onclick='zpracujUdalost("PripojitSePredchoziRegistrace")' id="PripojitSe">Připojit se předchozí registrace</button>
     <button onclick='zpracujUdalost("Domu")'>Domů</button>
-    <button id"Zpet">Zpět</button>  
+    <button id="Zpet">Zpět</button>  
     </div>
     `
     ZobrazHTML(html)
@@ -193,9 +193,9 @@ function ObrazovkaRegKadernictvi(){
     <p>Adresa provozovny</p>
     <input type="text">
     <p>Název provozovny</p>
-    <button id="ZaregistrovatSe">Zaregistrovat se</button>
+    <button onclick='zpracujUdalost("ZaregistrovatSe")' id="ZaregistrovatSe">Zaregistrovat se</button>
     <button id="Domu">Domů</button>
-    <button id"Zpet">Zpět</button>
+    <button id="Zpet">Zpět</button>
     </div>
     `
     ZobrazHTML(html)
@@ -227,8 +227,23 @@ function ObrazovkaOdpovedZadostKadernik(){
     <button id"Zpet">Zpět</button>
     </div>
     `
+    ZobrazHTML(html)
 
 
+}
+
+function ObrazovkaOznameniOVolnu(){
+    html=`
+    <div class="Obrazovka" id="ObrazovkaOznameniOVolnu">
+    <p>Zadejte čas od</p>
+    <input type="time">
+    <p>Zadejte čas do</p>
+    <input type="time">
+    <button onclick='zpracujUdalost("OdeslatOznameni")' id="OdeslatOznameni">Odeslat</button>
+    <button onclick='zpracujUdalost("Domu")'>Domů</button>
+    <button id="Zpet">Zpět</button>
+    `
+    ZobrazHTML(html)
 }
 
 
@@ -340,6 +355,12 @@ function zpracujUdalost(udalost){
         case "PripojitSePredchoziRegistrace":
             PripojitSePredchoziRegistrace()
             break;
+        case "ZaregistrovatSe":
+            ZaregistrovatSe();
+            break;
+        case "DatOSobeVedet":
+            DatOSobeVedet();
+            break;
         default:
             console.warn(`Neznama odalost ${udalost}`);
     }
@@ -391,6 +412,16 @@ function ZacitPouzivat(){
 function PripojitSePredchoziRegistrace(){
 
     ObrazovkaLoginKadernictvi()
+}
+
+function ZaregistrovatSe(){
+
+    ObrazovkaLoginKadernictvi()
+}
+
+function DatOSobeVedet(){
+
+    ObrazovkaOznameniOVolnu()    
 }
 
 
