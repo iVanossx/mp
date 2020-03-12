@@ -67,6 +67,8 @@ function vytvorNoveZarizeni(){
 //---ZÁKAZNÍK---
 function ZobrazHTML(html){
     document.querySelector("#obsah").innerHTML=html
+    //zobrazi jmeno obrazovky
+    document.querySelector("#jmeno-obrazovky").textContent=arguments.callee.caller.name
 }
 
 function ObrazovkaHomepageZakaznik(){
