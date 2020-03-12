@@ -411,7 +411,7 @@ function RegistrovatProvozovnu(){
 
 function ZacitPouzivat(){
 
-    ObrazovkaKadernikRegLog()
+    ObrazovkaZadostKlient()
 }
 
 function PripojitSePredchoziRegistrace(){
