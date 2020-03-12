@@ -85,11 +85,11 @@ function ObrazovkaZadostKlient(){
     html = `
     <div class="Obrazovka" id="ObrazovkaZadostKlient">
     <p>Tel. číslo/E-mail</p>
-    <input type="text">
+    <input type="text" id="TelCis">
     <p>Cenové rozmezí</p>
-    <input type="number">
+    <input type="number" id="CenRozmez">
     <p>Vzdálenost v m </p>
-    <input type="number">
+    <input type="number" id="Vzdalenost">
     <button onclick='zpracujUdalost("VyhledatKadernictvi")'>Vyhledat</button>
     <button onclick='zpracujUdalost("Domu")'>Domů</button>
     <button onclick>Zpět</button>
@@ -106,9 +106,9 @@ function ObrazovkaOdeslaniZadosti(){
     <h3>Nazev kadeřnictví</h3>
     <p>Nazev, cena, atd.</p>
     <p>Požadavek</p>
-    <input type="text">
+    <input type="text" id="Pozadavek">
     <p>V kolik</p>
-    <input type="time">
+    <input type="time" id="Vkolik">
     <button id="OdeslatZadost">Odeslat žádost</button>
     <button onlick>Domů</button>
     <button onlick>Zpět</button>
@@ -124,7 +124,7 @@ function ObrazovkaPotvzeniZadosti(){
     <button id="Prijdu">Přijdu</button>
     <button id="Neprijdu">Nepřijdu</button>
     <p>Doba příchodu</p>
-    <input type="time">
+    <input type="time" id="DobaPrichodu>
     <button onlick>Domů</button>
     <button onlick>Zpět</button>
     </div>
@@ -137,7 +137,7 @@ function ObrazovkaHodnoceni(){
     <div class="Obrazovka" id="ObrazovkaHodnoceni">
     <h3>Název kadeřnictví</h3>
     <p>Napiš nám recenzi</p>
-    <input type="text">
+    <input type="text" id=>
     <p>Ohodnoť hvězdami</p>
     <p>Nejaké hodnotítko</p>
     </div>
