@@ -379,6 +379,12 @@ function ZacitPouzivat (){
 function VyhledatKadernictvi(){
 
     console.log("Nic tu není")
+    const parametryVyhledavani ={
+        TelCis: document.querySelector("#ObrazovkaZadostKlient input#TelCis").value,
+        CenRozmez: Number(document.querySelector("#ObrazovkaZadostKlient input#CenRozmez").value),
+        Vzdalenost: Number(document.querySelector("#ObrazovkaZadostKlient input#Vzdalenost").value),        
+    }
+    console.log("parametryVyhledavani:", parametryVyhledavani)
 }
 
 function Domu() {
