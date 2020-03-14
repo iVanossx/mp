@@ -384,9 +384,10 @@ function VyhledatKadernictvi(){
 
     console.log("Nic tu není")
     const parametryVyhledavani ={
-        TelCis: VezmiHodnotu("ObrazovkaZadostKlient", "TelCis").value,
-        CenRozmez: Number(VezmiHodnotu("ObrazovkaZadostKlient", "CenRozmez").value),
-        Vzdalenost: Number(VezmiHodnotu("ObrazovkaZadostKlient", "Vzdalenost").value),        
+        TelCis1: document.querySelector("#ObrazovkaZadostKlient #TelCis").value,
+        TelCis: VezmiHodnotu("ObrazovkaZadostKlient", "TelCis"),
+        CenRozmez: Number(VezmiHodnotu("ObrazovkaZadostKlient", "CenRozmez")),
+        Vzdalenost: Number(VezmiHodnotu("ObrazovkaZadostKlient", "Vzdalenost")),        
     }
     console.log("parametryVyhledavani:", parametryVyhledavani)
 }
@@ -407,17 +408,13 @@ function Domu() {
 }
 
 function VezmiHodnotu(idObrazovky, idVstupu){
-
     return document.querySelector(`#${idObrazovky} input#${idVstupu}`).value
-
 }
 
 function loguj(zprava){
-
     const radek = document.createElement("p")
     radek.textContent = zprava
-    document.querySelector("#loguj").appendChild(radek)
-    
+    document.querySelector("#loguj").appendChild(radek)  
 }
 
 
