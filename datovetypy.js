@@ -384,7 +384,6 @@ function VyhledatKadernictvi(){
 
     console.log("Nic tu není")
     const parametryVyhledavani ={
-        TelCis1: document.querySelector("#ObrazovkaZadostKlient #TelCis").value,
         TelCis: VezmiHodnotu("ObrazovkaZadostKlient", "TelCis"),
         CenRozmez: Number(VezmiHodnotu("ObrazovkaZadostKlient", "CenRozmez")),
         Vzdalenost: Number(VezmiHodnotu("ObrazovkaZadostKlient", "Vzdalenost")),        
