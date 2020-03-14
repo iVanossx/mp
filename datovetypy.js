@@ -74,7 +74,7 @@ function ZobrazHTML(html){
 function ObrazovkaHomepageZakaznik(){
 
     html=`
-    <button onclick='zpracujUdalost("ZacitPouzivat")'>Začít používat</button>
+    <button onclick='zpracujUdalost("ZacitPouzivatZakaznik")'>Začít používat</button>
     <p>Aktivní požadavky</p>
     <p>Historie</p>
     `
@@ -151,7 +151,7 @@ function ObrazovkaHodnoceni(){
 function ObrazovkaHomepageKadernik(){
 
     html=`
-    <button onclick='zpracujUdalost("ZacitPouzivat")'>Začít používat</button>
+    <button onclick='zpracujUdalost("ZacitPouzivatKadernik")'>Začít používat</button>
     <button onclick='zpracujUdalost("DatOSobeVedet")'>Dát o sobě vědět</button>
     <p>Hodnocení</p>
     `
@@ -187,14 +187,15 @@ function ObrazovkaRegKadernictvi(){
     html=`
     <div class="Obrazovka" id="ObrazovkaRegKadernictvi">
     <p>E-mail</p>
-    <input type="email">
+    <input type="email" id="regEmail">
     <p>Heslo</p>
-    <input type="password">
+    <input type="password"  id="regHeslo">
     <p>Heslo znovu</p>
-    <input type="password">
+    <input type="password" id="regHesloZnovu">
     <p>Adresa provozovny</p>
-    <input type="text">
+    <input type="text" id="regAdresa">
     <p>Název provozovny</p>
+    <input type="text" id="regNazevProvoz">
     <button onclick='zpracujUdalost("ZaregistrovatSe")' id="ZaregistrovatSe">Zaregistrovat se</button>
     <button id="Domu">Domů</button>
     <button id="Zpet">Zpět</button>
@@ -351,8 +352,11 @@ function zpracujUdalost(udalost){
         case "Domu":
             Domu();
             break;
-        case "ZacitPouzivat":
-            ZacitPouzivat();
+        case "ZacitPouzivatZakaznik":
+            ZacitPouzivatZakaznik();
+            break;
+        case "ZacitPouzivatKadernik":
+            ZacitPouzivatKadernik();
             break;
         case "RegistrovatProvozovnu":
             RegistrovatProvozovnu();
@@ -371,7 +375,7 @@ function zpracujUdalost(udalost){
     }
 }
 
-function ZacitPouzivat (){
+function ZacitPouzivatZakaznik (){
 
     ObrazovkaZadostKlient()
 }
@@ -380,9 +384,9 @@ function VyhledatKadernictvi(){
 
     console.log("Nic tu není")
     const parametryVyhledavani ={
-        TelCis: document.querySelector("#ObrazovkaZadostKlient input#TelCis").value,
-        CenRozmez: Number(document.querySelector("#ObrazovkaZadostKlient input#CenRozmez").value),
-        Vzdalenost: Number(document.querySelector("#ObrazovkaZadostKlient input#Vzdalenost").value),        
+        TelCis: VezmiHodnotu("ObrazovkaZadostKlient", "TelCis").value,
+        CenRozmez: Number(VezmiHodnotu("ObrazovkaZadostKlient", "CenRozmez").value),
+        Vzdalenost: Number(VezmiHodnotu("ObrazovkaZadostKlient", "Vzdalenost").value),        
     }
     console.log("parametryVyhledavani:", parametryVyhledavani)
 }
@@ -398,7 +402,14 @@ function Domu() {
     else {
         ObrazovkaHomepageKadernik()
     }
+
         
+}
+
+function VezmiHodnotu(idObrazovky, idVstupu){
+
+    return document.querySelector(`#${idObrazovky} input#${idVstupu}`).value
+
 }
 
 function loguj(zprava){
@@ -412,12 +423,15 @@ function loguj(zprava){
 
 function RegistrovatProvozovnu(){
 
-    ObrazovkaRegKadernictvi()    
+    
+
+    ObrazovkaRegKadernictvi()
+
 }
 
-function ZacitPouzivat(){
+function ZacitPouzivatKadernik(){
 
-    ObrazovkaZadostKlient()
+    ObrazovkaKadernikRegLog()
 }
 
 function PripojitSePredchoziRegistrace(){
@@ -426,6 +440,18 @@ function PripojitSePredchoziRegistrace(){
 }
 
 function ZaregistrovatSe(){
+
+    const udajeregistrace = {
+        Email: VezmiHodnotu("ObrazovkaRegKadernictvi", "regEmail").value,
+        Heslo: VezmiHodnotu("ObrazovkaRegKadernictvi", "regHeslo").value,
+        HesloZnovu: VezmiHodnotu("ObrazovkaRegKaderctvi", "regHesloZnovu").value,
+        Adresa: VezmiHodnotu("ObrazovkaRegKadernictvi", "regAdresa").value,
+        NazevProvozovny: VezmiHodnotu("ObrazovkaKadernikRegLog", "regNazevProvoz").value,}
+
+        console.log("udajeregistrace", udajeregistrace)
+
+
+    
 
     ObrazovkaLoginKadernictvi()
 }
