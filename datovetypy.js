@@ -210,10 +210,10 @@ function ObrazovkaLoginKadernictvi(){
     html=`
     <div class="Obrazovka" id="ObrazovkaLoginKadernictvi">
     <p>Email</p>
-    <input type="email">
+    <input type="email" id="PrihlEmail">
     <p>Heslo</p>
-    <input type="password">
-    <button id="PrihlasitSe">Přihlísit se</button>
+    <input type="password" id="PrihlHeslo">
+    <button onclick='zpracujUdalost("PrihlasitSe")' id="PrihlasitSe">Přihlásit se</button>
     
     </div>
     `
@@ -239,9 +239,9 @@ function ObrazovkaOznameniOVolnu(){
     html=`
     <div class="Obrazovka" id="ObrazovkaOznameniOVolnu">
     <p>Zadejte čas od</p>
-    <input type="time">
+    <input type="time" id="CasOd">
     <p>Zadejte čas do</p>
-    <input type="time">
+    <input type="time" id="CasDo">
     <button onclick='zpracujUdalost("OdeslatOznameni")' id="OdeslatOznameni">Odeslat</button>
     <button onclick='zpracujUdalost("Domu")'>Domů</button>
     <button id="Zpet">Zpět</button>
@@ -370,8 +370,15 @@ function zpracujUdalost(udalost){
         case "DatOSobeVedet":
             DatOSobeVedet();
             break;
+        case "OdeslatOznameni":
+            OznamitVolno();
+            break;
         default:
+        
             console.warn(`Neznama odalost ${udalost}`);
+        case "PrihlasitSe":
+            PrihlasitSe();
+            break;
     }
 }
 
@@ -407,6 +414,7 @@ function Domu() {
 }
 
 function VezmiHodnotu(idObrazovky, idVstupu){
+   // console.log(`#${idObrazovky} input#${idVstupu}`)
     return document.querySelector(`#${idObrazovky} input#${idVstupu}`).value
 }
 
@@ -435,14 +443,26 @@ function PripojitSePredchoziRegistrace(){
     ObrazovkaLoginKadernictvi()
 }
 
+function PrihlasitSe (){
+
+    const PrihlasUdaje = {
+        Email: VezmiHodnotu("ObrazovkaLoginKadernictvi", "PrihlEmail"),
+        Heslo: VezmiHodnotu("ObrazovkaLoginKadernictvi", "PrihlHeslo")
+    }
+    console.log("PrihlasUdaje", PrihlasUdaje)
+
+    ObrazovkaHomepageKadernik()
+}
+
 function ZaregistrovatSe(){
 
     const udajeregistrace = {
-        Email: VezmiHodnotu("ObrazovkaRegKadernictvi", "regEmail").value,
-        Heslo: VezmiHodnotu("ObrazovkaRegKadernictvi", "regHeslo").value,
-        HesloZnovu: VezmiHodnotu("ObrazovkaRegKaderctvi", "regHesloZnovu").value,
-        Adresa: VezmiHodnotu("ObrazovkaRegKadernictvi", "regAdresa").value,
-        NazevProvozovny: VezmiHodnotu("ObrazovkaKadernikRegLog", "regNazevProvoz").value,}
+        Email: VezmiHodnotu("ObrazovkaRegKadernictvi", "regEmail"),
+        Heslo: VezmiHodnotu("ObrazovkaRegKadernictvi", "regHeslo"),
+        HesloZnovu: VezmiHodnotu("ObrazovkaRegKadernictvi", "regHesloZnovu"),
+        Adresa: VezmiHodnotu("ObrazovkaRegKadernictvi", "regAdresa"),
+        NazevProvozovny: VezmiHodnotu("ObrazovkaRegKadernictvi", "regNazevProvoz")
+    }
 
         console.log("udajeregistrace", udajeregistrace)
 
@@ -455,6 +475,19 @@ function ZaregistrovatSe(){
 function DatOSobeVedet(){
 
     ObrazovkaOznameniOVolnu()    
+}
+
+function OznamitVolno(){
+
+    const Casy={
+        CasOd: VezmiHodnotu("ObrazovkaOznameniOVolnu", "CasOd"),
+        CasDo: VezmiHodnotu("ObrazovkaOznameniOVolnu", "CasDo")
+
+
+    }
+    console.log("Casy", Casy)
+
+     ObrazovkaHomepageKadernik()
 }
 
 
