@@ -175,8 +175,7 @@ function ObrazovkaKadernikRegLog(){
     <div class="Obrazovka" id="ObrazovkaKadernikRegLog">
     <button onclick='zpracujUdalost("RegistrovatProvozovnu")' id="Registrovat provozovnu">Registrovat provozovnu</button>
     <button onclick='zpracujUdalost("PripojitSePredchoziRegistrace")' id="PripojitSe">Připojit se předchozí registrace</button>
-    <button onclick='zpracujUdalost("Domu")'>Domů</button>
-    <button id="Zpet">Zpět</button>  
+    <button onclick='zpracujUdalost("Domu")'>Domů</button>  
     </div>
     `
     ZobrazHTML(html)
@@ -197,8 +196,7 @@ function ObrazovkaRegKadernictvi(){
     <p>Název provozovny</p>
     <input type="text" id="regNazevProvoz">
     <button onclick='zpracujUdalost("ZaregistrovatSe")' id="ZaregistrovatSe">Zaregistrovat se</button>
-    <button id="Domu">Domů</button>
-    <button id="Zpet">Zpět</button>
+    <button onclick='zpracujUdalost("Domu")'>Domů</button>
     </div>
     `
     ZobrazHTML(html)
@@ -224,10 +222,9 @@ function ObrazovkaOdpovedZadostKadernik(){
     html=`
     <div class="Obrazovka" id="ObrazovkaOdpovedZadostKadernik">
     <p>Zobrazeni žádosti</p>
-    <button id="PrijetiZadosti">Přijmout</button>
-    <button id="OdmitnoutZadost">Odmítnout</button>
-    <button id="Domu">Domů</button>
-    <button id"Zpet">Zpět</button>
+    <button onclick='zpracujUdalost("Prijmout")' id="PrijetiZadosti">Přijmout</button>
+    <button onclick='zpracujUdalost("Odmitnout") id="OdmitnoutZadost">Odmítnout</button>
+    <button onclick='zpracujUdalost("Domu")'>Domů</button>
     </div>
     `
     ZobrazHTML(html)
@@ -244,7 +241,6 @@ function ObrazovkaOznameniOVolnu(){
     <input type="time" id="CasDo">
     <button onclick='zpracujUdalost("OdeslatOznameni")' id="OdeslatOznameni">Odeslat</button>
     <button onclick='zpracujUdalost("Domu")'>Domů</button>
-    <button id="Zpet">Zpět</button>
     `
     ZobrazHTML(html)
 }
