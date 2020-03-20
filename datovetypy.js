@@ -74,10 +74,12 @@ function ZobrazHTML(html) {
 function ObrazovkaHomepageZakaznik() {
 
     html = `
+    <div class="Obrazovka" id="ObrazovkaHomePageZakaznik">
     <button onclick='zpracujUdalost("ZacitPouzivatZakaznik")'>Začít používat</button>
-    <p> Mazací tlačítko</p>
+    <button onclick='zpracujUdalost("SmazZarizeni")'>Smaž zařízení</button>
     <p>Aktivní požadavky</p>
     <p>Historie</p>
+    </div>
     `
     ZobrazHTML(html)
 }
@@ -101,10 +103,10 @@ function ObrazovkaZadostKlient() {
 }
 
 
-function ObrazovkaOdeslaniZadosti() {
+function ObrazovkaOdeslaniZadosti(Kadernictvi) {
     html = `
     <div class="Obrazovka" id="ObrazovkaOdeslaniZadosti">
-    <h3>Nazev kadeřnictví</h3>
+    <h3>${Kadernictvi.NazevProvozovny}</h3>
     <p>Nazev, cena, atd.</p>
     <p>Požadavek</p>
     <input type="text" id="Pozadavek">
@@ -115,8 +117,31 @@ function ObrazovkaOdeslaniZadosti() {
     <button onlick>Zpět</button>
     </div>
     `
-
+    ZobrazHTML(html)
 }
+
+function ObrazovkaVypis(SeznamKadernictvi){
+
+    
+    var Seznam = ""
+    for(const idKadernictvi of Object.keys(SeznamKadernictvi)){
+        const Kadernictvi = SeznamKadernictvi[idKadernictvi]
+
+       //Seznam = Seznam + " " + "<p>" + Kadernictvi.NazevProvozovny + "</p>\n"
+        Seznam = `${Seznam} <p onclick='zpracujUdalost("VybratKadernictvi","${Kadernictvi.id}")'> ${Kadernictvi.NazevProvozovny} </p>\n`
+
+
+    }
+    console.log(Seznam)
+    html= `<div class="Obrazovka">
+    <h2>Kadeřnictví</h2>
+    ${Seznam}
+    </div>` 
+    ZobrazHTML(html)
+}
+
+
+
 
 function ObrazovkaPotvzeniZadosti() {
     html = `
@@ -130,7 +155,7 @@ function ObrazovkaPotvzeniZadosti() {
     <button onlick>Zpět</button>
     </div>
     `
-
+    ZobrazHTML(html)
 }
 
 function ObrazovkaHodnoceni() {
@@ -143,7 +168,7 @@ function ObrazovkaHodnoceni() {
     <p>Nejaké hodnotítko</p>
     </div>
     `
-
+    ZobrazHTML(html)
 
 }
 
@@ -152,9 +177,10 @@ function ObrazovkaHodnoceni() {
 function ObrazovkaHomepageKadernik() {
 
     html = `
+    <div class="Obrazovka" id="ObrazovkaHomepageKadernik">
     <button onclick='zpracujUdalost("ZacitPouzivatKadernik")'>Začít používat</button>
     <button onclick='zpracujUdalost("DatOSobeVedet")'>Dát o sobě vědět</button>
-    <p> Mazací tlačítko</p> 
+    <button onclick='zpracujUdalost("SmazZarizeni")'>Smaž zařízení</button>  
     <p>Hodnocení</p>
     `
     ZobrazHTML(html)
@@ -306,9 +332,16 @@ const db = {
 
     UlozZarizeni: function (zarizeni) {
         localStorage["ZaznamZarizeni"] = JSON.stringify(zarizeni, null, 4);
+    },
+    SmazZarizeni: function(){
+        console.log("Mazu zařízení")
+        localStorage.removeItem("ZaznamZarizeni");
     }
 
+
 }
+
+
 const dbServer = {
     VyzvSeznamKadernictvi: function () {
         var json = localStorage["SeznamKadernictvi"];
@@ -330,6 +363,9 @@ const dbServer = {
 const server = {
 
     HledejKadernictvi: function (parametryVyhledavani) {
+
+        const dbKadernictvi = dbServer.VyzvSeznamKadernictvi()
+        return dbKadernictvi
        /*const NalezenaKadernictvi = [
             {
                 Kadernictvi: {
@@ -400,7 +436,7 @@ function spusteniAplikace() {
 }
 
 // funkce, ktera zajistuje spravne rozdelovani zpracovani udalosti - rozcestnik
-function zpracujUdalost(udalost) {
+function zpracujUdalost(udalost, p1, p2, p3) {
     console.log(`Zpracovacam udalost ${udalost} jdu na to`);
     loguj(`Zpracovacam udalost ${udalost} jdu na to`);
     switch (udalost) {
@@ -443,12 +479,20 @@ function zpracujUdalost(udalost) {
         case "OdeslatOznameni":
             OznamitVolno();
             break;
-        default:
-
-            console.warn(`Neznama odalost ${udalost}`);
+        case "SmazZarizeni":
+            SmazZarizeni();
+            break;
         case "PrihlasitSe":
             PrihlasitSe();
             break;
+        case "VybratKadernictvi":
+            VybratKadernictvi(p1);
+            break;
+            
+        default:
+
+            console.warn(`Neznama odalost ${udalost}`);
+        
     }
 }
 
@@ -468,18 +512,19 @@ function VyhledatKadernictvi() {
 
     console.log("parametryVyhledavani:", parametryVyhledavani)
 
-    const Kadernictvi = server.HledejKadernictvi(parametryVyhledavani)
-    console.log("Kadernctvi", Kadernictvi)
-    return Kadernictvi
-
-        
-    console.log("Kadernctvi", Kadernictvi)
-    
-
-        
-        
-    
+    const vyhledanaKadernictvi = server.HledejKadernictvi(parametryVyhledavani)
+    console.log("Kadernctvi", vyhledanaKadernictvi)
+    window.PosledniVyhledanaKadernictvi = vyhledanaKadernictvi
+    ObrazovkaVypis(vyhledanaKadernictvi)   
 }
+
+function SmazZarizeni(){
+
+    db.SmazZarizeni()
+    spusteniAplikace()
+}
+
+
 
 function Domu() {
 
@@ -505,6 +550,13 @@ function loguj(zprava) {
     const radek = document.createElement("p")
     radek.textContent = zprava
     document.querySelector("#loguj").appendChild(radek)
+}
+
+function VybratKadernictvi(idKadernictvi){
+
+    const Kadernictvi = window.PosledniVyhledanaKadernictvi[idKadernictvi]
+    console.log( `Vybrano kadeřnictví: ${idKadernictvi}`)
+    ObrazovkaOdeslaniZadosti(Kadernictvi)
 }
 
 
