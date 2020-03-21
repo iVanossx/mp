@@ -72,7 +72,7 @@ function ZobrazHTML(html) {
 }
 
 function ObrazovkaHomepageZakaznik() {
-
+    var html
     html = `
     <div class="Obrazovka" id="ObrazovkaHomePageZakaznik">
     <button onclick='zpracujUdalost("ZacitPouzivatZakaznik")'>Začít používat</button>
@@ -85,6 +85,7 @@ function ObrazovkaHomepageZakaznik() {
 }
 
 function ObrazovkaZadostKlient() {
+    var html
     html = `
     <div class="Obrazovka" id="ObrazovkaZadostKlient">
     <p>Tel. číslo/E-mail</p>
@@ -103,6 +104,7 @@ function ObrazovkaZadostKlient() {
 
 
 function ObrazovkaOdeslaniZadosti(Kadernictvi) {
+    var html
     html = `
     <div class="Obrazovka" id="ObrazovkaOdeslaniZadosti">
     <h3>${Kadernictvi.NazevProvozovny}</h3>
@@ -119,23 +121,23 @@ function ObrazovkaOdeslaniZadosti(Kadernictvi) {
     ZobrazHTML(html)
 }
 
-function ObrazovkaVypis(SeznamKadernictvi){
+function ObrazovkaVypis(SeznamKadernictvi) {
 
-    
+    var html
     var Seznam = ""
-    for(const idKadernictvi of Object.keys(SeznamKadernictvi)){
+    for (const idKadernictvi of Object.keys(SeznamKadernictvi)) {
         const Kadernictvi = SeznamKadernictvi[idKadernictvi]
 
-       //Seznam = Seznam + " " + "<p>" + Kadernictvi.NazevProvozovny + "</p>\n"
+        //Seznam = Seznam + " " + "<p>" + Kadernictvi.NazevProvozovny + "</p>\n"
         Seznam = `${Seznam} <p onclick='zpracujUdalost("VybratKadernictvi","${Kadernictvi.id}")'> ${Kadernictvi.NazevProvozovny}, ${Kadernictvi.Adresa} </p>\n`
 
 
     }
     console.log(Seznam)
-    html= `<div class="Obrazovka">
+    html = `<div class="Obrazovka">
     <h2>Kadeřnictví</h2>
     ${Seznam}
-    </div>` 
+    </div>`
     ZobrazHTML(html)
 }
 
@@ -143,6 +145,7 @@ function ObrazovkaVypis(SeznamKadernictvi){
 
 
 function ObrazovkaPotvzeniZadosti() {
+    var html
     html = `
     <div class="Obrazovka" id="ObrazovkaPovtzeniZadosti">
     <p>Zpráva o vyřízení nebo zamítnutí žádosti</p>
@@ -158,6 +161,7 @@ function ObrazovkaPotvzeniZadosti() {
 }
 
 function ObrazovkaHodnoceni() {
+    var html
     html = `
     <div class="Obrazovka" id="ObrazovkaHodnoceni">
     <h3>Název kadeřnictví</h3>
@@ -174,18 +178,37 @@ function ObrazovkaHodnoceni() {
 
 //----KADEŘNÍK---
 function ObrazovkaHomepageKadernik() {
+    var html
+    const zarizeni = db.VyzvZarizeni()
+    if (zarizeni.Kadernictvi) {
 
-    html = `
-    <div class="Obrazovka" id="ObrazovkaHomepageKadernik">
-    <button onclick='zpracujUdalost("ZacitPouzivatKadernik")'>Začít používat</button>
-    <button onclick='zpracujUdalost("DatOSobeVedet")'>Dát o sobě vědět</button>
-    <button onclick='zpracujUdalost("SmazZarizeni")'>Smaž zařízení</button>  
-    <p>Hodnocení</p>
-    `
+        console.log("jsem přihlášen")
+
+        html = `
+        <div class="Obrazovka" id="ObrazovkaHomepageKadernik">
+        <h2>${zarizeni.Kadernictvi.NazevProvozovny}</h2>
+        <h4>${zarizeni.Kadernictvi.Adresa}</h4>
+        <button onclick='zpracujUdalost("DatOSobeVedet")'>Dát o sobě vědět</button>
+        <button onclick='zpracujUdalost("SmazZarizeni")'>Smaž zařízení</button>  
+        <p>Hodnocení</p>
+        `
+    }
+    else {
+        html = `
+        <div class="Obrazovka" id="ObrazovkaHomepageKadernik">
+        <button onclick='zpracujUdalost("ZacitPouzivatKadernik")'>Začít používat</button>
+        <button onclick='zpracujUdalost("SmazZarizeni")'>Smaž zařízení</button>  
+        <p>Hodnocení</p>
+        `
+        console.log("Nejsem přihlášen")
+    }
+
+
     ZobrazHTML(html)
 }
 
 function ObrazovkaRozhodnuti() {
+    var html
     html = `
     <div class="Obrazovka" id="ObrazovkaRozhodnuti">
     <button onclick='zpracujUdalost("zapniRezimZakaznik")' id="TlacitkoZaznik">Jsem zákazník</button>
@@ -198,6 +221,7 @@ function ObrazovkaRozhodnuti() {
 
 
 function ObrazovkaKadernikRegLog() {
+    var html
     html = `
     <div class="Obrazovka" id="ObrazovkaKadernikRegLog">
     <button onclick='zpracujUdalost("RegistrovatProvozovnu")' id="Registrovat provozovnu">Registrovat provozovnu</button>
@@ -210,6 +234,7 @@ function ObrazovkaKadernikRegLog() {
 
 
 function ObrazovkaRegKadernictvi() {
+    var html
     html = `
     <div class="Obrazovka" id="ObrazovkaRegKadernictvi">
     <p>E-mail</p>
@@ -232,6 +257,7 @@ function ObrazovkaRegKadernictvi() {
 
 
 function ObrazovkaLoginKadernictvi() {
+    var html
     html = `
     <div class="Obrazovka" id="ObrazovkaLoginKadernictvi">
     <p>Email</p>
@@ -239,6 +265,7 @@ function ObrazovkaLoginKadernictvi() {
     <p>Heslo</p>
     <input type="password" id="PrihlHeslo">
     <button onclick='zpracujUdalost("PrihlasitSe")' id="PrihlasitSe">Přihlásit se</button>
+    <button onclick='zpracujUdalost("Domu")'>Domů</button>
     
     </div>
     `
@@ -246,6 +273,7 @@ function ObrazovkaLoginKadernictvi() {
 }
 
 function ObrazovkaOdpovedZadostKadernik() {
+    var html
     html = `
     <div class="Obrazovka" id="ObrazovkaOdpovedZadostKadernik">
     <p>Zobrazeni žádosti</p>
@@ -260,6 +288,7 @@ function ObrazovkaOdpovedZadostKadernik() {
 }
 
 function ObrazovkaOznameniOVolnu() {
+    var html
     html = `
     <div class="Obrazovka" id="ObrazovkaOznameniOVolnu">
     <p>Zadejte čas od</p>
@@ -332,10 +361,12 @@ const db = {
     UlozZarizeni: function (zarizeni) {
         localStorage["ZaznamZarizeni"] = JSON.stringify(zarizeni, null, 4);
     },
-    SmazZarizeni: function(){
+    SmazZarizeni: function () {
         console.log("Mazu zařízení")
         localStorage.removeItem("ZaznamZarizeni");
-    }
+    },
+
+
 
 
 }
@@ -359,60 +390,53 @@ const dbServer = {
 
 }
 
+function OdebratCitliveUdaje(Kadernictvi) {
+
+    delete Kadernictvi.Heslo
+    delete Kadernictvi.HesloZnovu
+    delete Kadernictvi.Email
+}
+
 const server = {
 
     HledejKadernictvi: function (parametryVyhledavani) {
 
         const dbKadernictvi = dbServer.VyzvSeznamKadernictvi()
+        for (const idKadernictvi of Object.keys(dbKadernictvi)) {
+            const Kadernictvi = dbKadernictvi[idKadernictvi]
+            OdebratCitliveUdaje(Kadernictvi)
+        }
         return dbKadernictvi
-       /*const NalezenaKadernictvi = [
-            {
-                Kadernictvi: {
-                    Adresa: "Rohlíkova 8",
-                    NazevProvozovny: "Střihač Obecný"
-                },
-                Nabidka: {
-                    CasOd: "13:00",
-                    CasDo: "13:30",
-                    Cena: 200
-                }
-            },
-            {
-                Kadernictvi: {
-                    Adresa: "Housková 6",
-                    NazevProvozovny: "Kadeř Ník"
-                },
-                Nabidka: {
-                    CasOd: "16:00",
-                    CasDo: "16:15",
-                    Cena: 100
-                }
-            },
-            {
-                Kadernictvi: {
-                    Adresa: "Chlebová 88",
-                    NazevProvozovny: "Střih De Lux"
-                },
-                Nabidka: {
-                    CasOd: "10:00",
-                    CasDo: "11:00",
-                    Cena: 150
-                }
-            }
 
-        ]
-        return NalezenaKadernictvi*/
     },
 
-    RegistraceKadernictvi: function(udajeregistrace){
+    RegistraceKadernictvi: function (udajeregistrace) {
         const dbKadernictvi = dbServer.VyzvSeznamKadernictvi()
         dbKadernictvi[udajeregistrace.id] = udajeregistrace
         dbServer.UlozSeznamKadernictvi(dbKadernictvi)
 
+    },
+
+    Prihlaseni: function (PrihlasUdaje) {
+
+        const dbKadernictvi = dbServer.VyzvSeznamKadernictvi()
+        for (const idKadernictvi of Object.keys(dbKadernictvi)) {
+
+            const Kadernictvi = dbKadernictvi[idKadernictvi]
+
+            if (PrihlasUdaje.Email === Kadernictvi.Email) {
+
+                if (PrihlasUdaje.Heslo === Kadernictvi.Heslo) {
+                    console.log("Kadernictví nalezeno")
+                    OdebratCitliveUdaje(Kadernictvi)
+                    return Kadernictvi
+                }
+            }
+        }
+        console.log("Nenalezene kadeřnictví při přihlašování")
+        return null
     }
-
-
-}
+} //server
 
 
 function spusteniAplikace() {
@@ -490,11 +514,11 @@ function zpracujUdalost(udalost, p1, p2, p3) {
         case "OdeslatZadost":
             OdeslatZadost();
             break;
-            
+
         default:
 
             console.warn(`Neznama odalost ${udalost}`);
-        
+
     }
 }
 
@@ -517,10 +541,10 @@ function VyhledatKadernictvi() {
     const vyhledanaKadernictvi = server.HledejKadernictvi(parametryVyhledavani)
     console.log("Kadernctvi", vyhledanaKadernictvi)
     window.PosledniVyhledanaKadernictvi = vyhledanaKadernictvi
-    ObrazovkaVypis(vyhledanaKadernictvi)   
+    ObrazovkaVypis(vyhledanaKadernictvi)
 }
 
-function SmazZarizeni(){
+function SmazZarizeni() {
 
     db.SmazZarizeni()
     spusteniAplikace()
@@ -554,10 +578,10 @@ function loguj(zprava) {
     document.querySelector("#loguj").appendChild(radek)
 }
 
-function VybratKadernictvi(idKadernictvi){
+function VybratKadernictvi(idKadernictvi) {
 
     const Kadernictvi = window.PosledniVyhledanaKadernictvi[idKadernictvi]
-    console.log( `Vybrano kadeřnictví: ${idKadernictvi}`)
+    console.log(`Vybrano kadeřnictví: ${idKadernictvi}`)
     ObrazovkaOdeslaniZadosti(Kadernictvi)
 }
 
@@ -570,7 +594,7 @@ function RegistrovatProvozovnu() {
 
 }
 
-function OdeslatZadost(){
+function OdeslatZadost() {
 
 
 }
@@ -591,9 +615,26 @@ function PrihlasitSe() {
         Email: VezmiHodnotu("ObrazovkaLoginKadernictvi", "PrihlEmail"),
         Heslo: VezmiHodnotu("ObrazovkaLoginKadernictvi", "PrihlHeslo")
     }
-    console.log("PrihlasUdaje", PrihlasUdaje)
 
-    ObrazovkaHomepageKadernik()
+    console.log("PrihlasUdaje", PrihlasUdaje)
+    const VysledekPrihlaseni = server.Prihlaseni(PrihlasUdaje)
+
+    if (VysledekPrihlaseni === null) {
+
+        alert("Přihlášení se nezdařilo")
+    }
+    else {
+        const zarizeni = db.VyzvZarizeni();
+        zarizeni.Kadernictvi = VysledekPrihlaseni
+        db.UlozZarizeni(zarizeni)
+        console.log(zarizeni)
+        ObrazovkaHomepageKadernik()
+
+
+    }
+
+
+
 }
 
 function ZaregistrovatSe() {
@@ -605,7 +646,7 @@ function ZaregistrovatSe() {
         Adresa: VezmiHodnotu("ObrazovkaRegKadernictvi", "regAdresa"),
         NazevProvozovny: VezmiHodnotu("ObrazovkaRegKadernictvi", "regNazevProvoz")
     }
-    udajeregistrace.id=String(Math.random()) + String(Math.random())
+    udajeregistrace.id = String(Math.random()) + String(Math.random())
 
     server.RegistraceKadernictvi(udajeregistrace)
 
