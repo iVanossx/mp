@@ -95,7 +95,6 @@ function ObrazovkaZadostKlient() {
     <input type="number" id="Vzdalenost">
     <button onclick='zpracujUdalost("VyhledatKadernictvi")'>Vyhledat</button>
     <button onclick='zpracujUdalost("Domu")'>Domů</button>
-    <button onclick>Zpět</button>
     </div>
     `
     ZobrazHTML(html)
@@ -107,14 +106,14 @@ function ObrazovkaOdeslaniZadosti(Kadernictvi) {
     html = `
     <div class="Obrazovka" id="ObrazovkaOdeslaniZadosti">
     <h3>${Kadernictvi.NazevProvozovny}</h3>
+    <h3>${Kadernictvi.Adresa}<h3>
     <p>Nazev, cena, atd.</p>
     <p>Požadavek</p>
     <input type="text" id="Pozadavek">
     <p>V kolik</p>
     <input type="time" id="Vkolik">
-    <button id="OdeslatZadost">Odeslat žádost</button>
-    <button onlick>Domů</button>
-    <button onlick>Zpět</button>
+    <button onclick='zpracujUdalost("OdeslatZadost")' id="OdeslatZadost">Odeslat žádost</button>
+    <button onclick='zpracujUdalost("Domu")'>Domů</button>
     </div>
     `
     ZobrazHTML(html)
@@ -128,7 +127,7 @@ function ObrazovkaVypis(SeznamKadernictvi){
         const Kadernictvi = SeznamKadernictvi[idKadernictvi]
 
        //Seznam = Seznam + " " + "<p>" + Kadernictvi.NazevProvozovny + "</p>\n"
-        Seznam = `${Seznam} <p onclick='zpracujUdalost("VybratKadernictvi","${Kadernictvi.id}")'> ${Kadernictvi.NazevProvozovny} </p>\n`
+        Seznam = `${Seznam} <p onclick='zpracujUdalost("VybratKadernictvi","${Kadernictvi.id}")'> ${Kadernictvi.NazevProvozovny}, ${Kadernictvi.Adresa} </p>\n`
 
 
     }
@@ -488,6 +487,9 @@ function zpracujUdalost(udalost, p1, p2, p3) {
         case "VybratKadernictvi":
             VybratKadernictvi(p1);
             break;
+        case "OdeslatZadost":
+            OdeslatZadost();
+            break;
             
         default:
 
@@ -565,6 +567,11 @@ function RegistrovatProvozovnu() {
 
 
     ObrazovkaRegKadernictvi()
+
+}
+
+function OdeslatZadost(){
+
 
 }
 
