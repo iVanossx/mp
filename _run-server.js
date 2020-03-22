@@ -82,6 +82,7 @@ async function processStatic(req,res){
     try {
         try {
             const stat = await fsProm.stat(resource)
+            if (stat.isDirectory) throw new Error("dir")
         }catch (err){
             res.writeHead("301",{"Location":"/index.html"})
             res.end()
