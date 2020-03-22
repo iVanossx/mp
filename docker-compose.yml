@@ -3,6 +3,7 @@ services:
   strihani:
     image: node
     restart: always
+    working_dir: /work
     command: node _run_server.js
     expose:
     - 8080
