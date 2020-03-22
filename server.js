@@ -46,19 +46,26 @@ var server = {
         return null
     },
 
-    OdeslaniZadost: function (UdajeZadosti) {
+    UlozeniZadost: function (UdajeZadosti) {
 
         const dbZadosti = this.dbServer.Vyzvedni("SeznamZadosti")
         dbZadosti[UdajeZadosti.idZarizeni] = UdajeZadosti
         this.dbServer.Uloz("SeznamZadosti", dbZadosti)
-        const Klic = UdajeZadosti.idZarizeni + UdajeZadosti.idKadernictvi
-        for (const idKadernictvi of Object.keys(dbKadernictvi)) {
-            if (UdajeZadosti.idKadernictvi === dbKadernictvi[idKadernictvi]) {
-                
+        const idZadosti = UdajeZadosti.idZarizeni + UdajeZadosti.idKadernictvi
+    },
+
+    ZadostiKadernictvi: function (idKadernictvi) {
+        const SeznamNalezenychZadosti = {} 
+        const SeznamZadostizDB = this.dbServer.Vyzvedni("SeznamZadosti")
+        for(const idZadosti of Object.keys(SeznamZadostizDB)){
+            const Zadost = SeznamZadostizDB[idZadosti]
+            if(idKadernictvi === Zadost.idKadernictvi){
+                SeznamNalezenychZadosti[idZadosti] = Zadost
             }
+            
         }
-
-
+        console.log(SeznamNalezenychZadosti)
+        return SeznamNalezenychZadosti
 
     }
 
