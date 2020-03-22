@@ -4,7 +4,8 @@ services:
     image: node
     restart: always
     working_dir: /work
-    command: node _run_server.js
+    #command: node _run_server.js
+    command: ['bash', '-c', 'ls -l ']
     expose:
     - 8080
     volumes:
