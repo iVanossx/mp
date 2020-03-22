@@ -8,6 +8,8 @@
     <title>Maturitní práce</title>
     <link rel="stylesheet" href="style.css">
     <script src="datovetypy.js"  type="text/javascript"></script>
+    <script src="server.js"  type="text/javascript"></script>
+    <script src="_server-stub.js"  type="text/javascript"></script>
 </head>
 <body>
     <h1>Maturitní práce</h1>
@@ -25,7 +27,9 @@
 
 <script tyep="text/javascript">
 window.addEventListener('load', function() {
-
+    if (window.location.protocol.indexOf('http')==0){
+        server=serverStub
+    }
     zpracujUdalost("spusteniAplikace")
 });
 </script>

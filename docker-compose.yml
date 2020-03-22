@@ -1,0 +1,17 @@
+version: 2
+services:
+    image: node
+    restart: always
+    command: node _run_server.js
+    expose: 8080
+    volumes:
+    - .:/work
+    labels:
+       # enable traefik processing
+       - "traefik.enable=true"
+       # secure traefik internal service - API
+       - "traefik.http.routers.strih.entrypoints=websecure"
+       - "traefik.http.routers.strih.rule=Host(`${HOSTNAME}.${DOMAINNAME}`)"
+       - "traefik.http.routers.strih.tls=true"
+       - "traefik.http.routers.strih.tls.certresolver=letsencrypt"
+        

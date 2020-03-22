@@ -366,9 +366,6 @@ const db = {
         localStorage.removeItem("ZaznamZarizeni");
     },
 
-
-
-
 }
 
 
@@ -390,53 +387,6 @@ const dbServer = {
 
 }
 
-function OdebratCitliveUdaje(Kadernictvi) {
-
-    delete Kadernictvi.Heslo
-    delete Kadernictvi.HesloZnovu
-    delete Kadernictvi.Email
-}
-
-const server = {
-
-    HledejKadernictvi: function (parametryVyhledavani) {
-
-        const dbKadernictvi = dbServer.VyzvSeznamKadernictvi()
-        for (const idKadernictvi of Object.keys(dbKadernictvi)) {
-            const Kadernictvi = dbKadernictvi[idKadernictvi]
-            OdebratCitliveUdaje(Kadernictvi)
-        }
-        return dbKadernictvi
-
-    },
-
-    RegistraceKadernictvi: function (udajeregistrace) {
-        const dbKadernictvi = dbServer.VyzvSeznamKadernictvi()
-        dbKadernictvi[udajeregistrace.id] = udajeregistrace
-        dbServer.UlozSeznamKadernictvi(dbKadernictvi)
-
-    },
-
-    Prihlaseni: function (PrihlasUdaje) {
-
-        const dbKadernictvi = dbServer.VyzvSeznamKadernictvi()
-        for (const idKadernictvi of Object.keys(dbKadernictvi)) {
-
-            const Kadernictvi = dbKadernictvi[idKadernictvi]
-
-            if (PrihlasUdaje.Email === Kadernictvi.Email) {
-
-                if (PrihlasUdaje.Heslo === Kadernictvi.Heslo) {
-                    console.log("Kadernictví nalezeno")
-                    OdebratCitliveUdaje(Kadernictvi)
-                    return Kadernictvi
-                }
-            }
-        }
-        console.log("Nenalezene kadeřnictví při přihlašování")
-        return null
-    }
-} //server
 
 
 function spusteniAplikace() {
@@ -527,7 +477,8 @@ function ZacitPouzivatZakaznik() {
     ObrazovkaZadostKlient()
 }
 
-function VyhledatKadernictvi() {
+//kazda funkce, ktera obsahuje await musi byt oznacena jako async
+async function VyhledatKadernictvi() {
 
     console.log("Nic tu není")
     const parametryVyhledavani = {
@@ -538,7 +489,9 @@ function VyhledatKadernictvi() {
 
     console.log("parametryVyhledavani:", parametryVyhledavani)
 
-    const vyhledanaKadernictvi = server.HledejKadernictvi(parametryVyhledavani)
+
+    //pri volani serveru misi vzdy byt predrazeno oznackovani await 
+    const vyhledanaKadernictvi = await server.HledejKadernictvi(parametryVyhledavani)
     console.log("Kadernctvi", vyhledanaKadernictvi)
     window.PosledniVyhledanaKadernictvi = vyhledanaKadernictvi
     ObrazovkaVypis(vyhledanaKadernictvi)
@@ -609,7 +562,7 @@ function PripojitSePredchoziRegistrace() {
     ObrazovkaLoginKadernictvi()
 }
 
-function PrihlasitSe() {
+async function PrihlasitSe() {
 
     const PrihlasUdaje = {
         Email: VezmiHodnotu("ObrazovkaLoginKadernictvi", "PrihlEmail"),
@@ -617,7 +570,7 @@ function PrihlasitSe() {
     }
 
     console.log("PrihlasUdaje", PrihlasUdaje)
-    const VysledekPrihlaseni = server.Prihlaseni(PrihlasUdaje)
+    const VysledekPrihlaseni = await server.Prihlaseni(PrihlasUdaje)
 
     if (VysledekPrihlaseni === null) {
 
@@ -637,7 +590,7 @@ function PrihlasitSe() {
 
 }
 
-function ZaregistrovatSe() {
+async function ZaregistrovatSe() {
 
     const udajeregistrace = {
         Email: VezmiHodnotu("ObrazovkaRegKadernictvi", "regEmail"),
@@ -648,7 +601,7 @@ function ZaregistrovatSe() {
     }
     udajeregistrace.id = String(Math.random()) + String(Math.random())
 
-    server.RegistraceKadernictvi(udajeregistrace)
+    await server.RegistraceKadernictvi(udajeregistrace)
 
     console.log("udajeregistrace", udajeregistrace)
 
