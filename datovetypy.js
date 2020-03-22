@@ -135,7 +135,7 @@ function FormatujCas(hodiny, minuty) {
     var minuta
     if (hodiny < 10) {
         hodina = "0" + String(hodiny)
-        
+
     }
     else {
         hodina = String(hodiny)
@@ -317,12 +317,13 @@ function ObrazovkaOdpovedZadostKadernik() {
 
 }
 
-function ObrazovkaZadosti (){
+function ObrazovkaZadosti() {
 
     var html
     html = `
     <div class="Obrazovka" id="ObrazovkaZadosti">
     <p>Seznam</p>
+    <button onclick='zpracujUdalost("Domu")'>Domů</button>
     </div>
     `
     ZobrazHTML(html)
@@ -423,7 +424,7 @@ const dbServer = {
     },
 
     Uloz: function (nazevZaznamu, obsahZaznamu) {
-        localStorage["nazevZaznamu"] = JSON.stringify(obsahZaznamu, null, 4);
+        localStorage[nazevZaznamu] = JSON.stringify(obsahZaznamu, null, 4);
     }
 
 }
@@ -547,7 +548,7 @@ function SmazZarizeni() {
     spusteniAplikace()
 }
 
-function Zadosti(){
+function Zadosti() {
 
     ObrazovkaZadosti()
 }
@@ -603,11 +604,12 @@ function RegistrovatProvozovnu() {
 }
 
 async function OdeslatZadost(idKadernictvi) {
-
+    var zarizeni = db.VyzvZarizeni()
     const UdajeZadosti = {
         Pozadavek: VezmiHodnotu("ObrazovkaOdeslaniZadosti", "zakazPozadavek"),
         Cas: VezmiHodnotu("ObrazovkaOdeslaniZadosti", "zakazVkolik"),
-        idKadernictvi: idKadernictvi
+        idKadernictvi: idKadernictvi,
+        idZarizeni: zarizeni.id
     }
 
     await server.OdeslaniZadost(UdajeZadosti)

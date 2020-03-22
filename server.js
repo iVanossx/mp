@@ -1,9 +1,9 @@
 var server = {
 
-    dbServer: typeof(dbServer)=="undefined" ? null : dbServer,  
+    dbServer: typeof (dbServer) == "undefined" ? null : dbServer,
 
-    OverrideDb: function(db){
-        this.dbServer=db
+    OverrideDb: function (db) {
+        this.dbServer = db
     },
 
     HledejKadernictvi: function (parametryVyhledavani) {
@@ -20,7 +20,7 @@ var server = {
     RegistraceKadernictvi: function (udajeregistrace) {
         const dbKadernictvi = this.dbServer.Vyzvedni("SeznamKadernictvi")
         dbKadernictvi[udajeregistrace.id] = udajeregistrace
-        this.dbServer.Uloz("SeznamKadernictvi",dbKadernictvi)
+        this.dbServer.Uloz("SeznamKadernictvi", dbKadernictvi)
 
     },
 
@@ -46,10 +46,20 @@ var server = {
         return null
     },
 
-    OdeslaniZadost: function(UdajeZadosti){
+    OdeslaniZadost: function (UdajeZadosti) {
 
-        
-        
+        const dbZadosti = this.dbServer.Vyzvedni("SeznamZadosti")
+        dbZadosti[UdajeZadosti.idZarizeni] = UdajeZadosti
+        this.dbServer.Uloz("SeznamZadosti", dbZadosti)
+        const Klic = UdajeZadosti.idZarizeni + UdajeZadosti.idKadernictvi
+        for (const idKadernictvi of Object.keys(dbKadernictvi)) {
+            if (UdajeZadosti.idKadernictvi === dbKadernictvi[idKadernictvi]) {
+                
+            }
+        }
+
+
+
     }
 
 
@@ -64,7 +74,7 @@ function OdebratCitliveUdaje(Kadernictvi) {
 
 
 
-if (typeof(exports) !== 'undefined'){
+if (typeof (exports) !== 'undefined') {
     exports.HledejKadernictvi = server.HledejKadernictvi.bind(server)
     exports.RegistraceKadernictvi = server.RegistraceKadernictvi.bind(server)
     exports.Prihlaseni = server.Prihlaseni.bind(server)

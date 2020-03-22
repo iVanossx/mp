@@ -79,7 +79,7 @@ const dbServer = {
     },
 
     Uloz: function (nazevZaznamu, obsahZaznamu) {
-        localStorage["nazevZaznamu"] = JSON.stringify(obsahZaznamu, null, 4);
+        localStorage[nazevZaznamu] = JSON.stringify(obsahZaznamu, null, 4);
     }
 
 }
