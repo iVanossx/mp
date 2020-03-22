@@ -80,8 +80,14 @@ async function processStatic(req,res){
     console.log(`${resource}`)
     //res.headers['content-type']=
     try {
+        try {
+            const stat = await fsProm.stat(resource)
+        }catch (err){
+            res.writeHead("301",{"Location":"/index.html"})
+            res.end()
+            return    
+        }
         const type=resolveType(resource)
-        const stat = await fsProm.stat(resource)
         const rd=fs.createReadStream(resource)
         res.writeHead("200",{"content-type":type})
         rd.pipe(res)
