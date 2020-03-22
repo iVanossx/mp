@@ -5,7 +5,7 @@ services:
     restart: always
     working_dir: /work
     #command: node _run_server.js
-    command: ['bash', '-c', 'ls -l ']
+    command: ['bash', '-c', 'while true; do sleep 10; done']
     expose:
     - 8080
     volumes:
