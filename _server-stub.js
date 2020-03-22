@@ -24,12 +24,12 @@ async function dynacall(name, args){
             method:"POST",
             body: JSON.stringify(call,null,"  ")
         })
-    const resp = await resp.text()
+    const text = await resp.text()
     let retval 
     try {
-        retval = JSON.parse(resp)
+        retval = JSON.parse(text)
     } catch {
-        console.log(`vracena hodnota nebyla spravne formatvana: ${resp}`)
+        console.log(`vracena hodnota nebyla spravne formatvana: ${text}`)
     }
     return reval    
 }
