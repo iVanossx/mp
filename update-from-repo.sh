@@ -5,6 +5,6 @@ git pull
 
 echo -n '{"rev":"' > rev.js
 echo -n "$(git rev-parse HEAD)" >>rev.js
-echo -n '"}'>>rev.js
+echo -n '"}'>>rev.json
 
 
