@@ -14,4 +14,9 @@ services:
        - "traefik.http.routers.strih.rule=Host(`${HOSTNAME}.${DOMAINNAME}`)"
        - "traefik.http.routers.strih.tls=true"
        - "traefik.http.routers.strih.tls.certresolver=letsencrypt"
+
+networks: 
+  default:
+    external:
+        name: proxy  
         
