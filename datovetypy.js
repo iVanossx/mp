@@ -103,22 +103,51 @@ function ObrazovkaZadostKlient() {
 }
 
 
+
+
+
 function ObrazovkaOdeslaniZadosti(Kadernictvi) {
     var html
+    var datum = new Date()
+    var hodiny = datum.getHours()
+    var minuty = datum.getMinutes()
+    var cas
+    cas = FormatujCas(hodiny, minuty)
     html = `
     <div class="Obrazovka" id="ObrazovkaOdeslaniZadosti">
     <h3>${Kadernictvi.NazevProvozovny}</h3>
     <h3>${Kadernictvi.Adresa}<h3>
     <p>Nazev, cena, atd.</p>
     <p>Požadavek</p>
-    <input type="text" id="Pozadavek">
+    <input type="text" id="zakazPozadavek">
     <p>V kolik</p>
-    <input type="time" id="Vkolik">
-    <button onclick='zpracujUdalost("OdeslatZadost")' id="OdeslatZadost">Odeslat žádost</button>
+    <input type="time" value="${cas}" id="zakazVkolik">
+    <button onclick='zpracujUdalost("OdeslatZadost", "${Kadernictvi.id}")' id="OdeslatZadost">Odeslat žádost</button>
     <button onclick='zpracujUdalost("Domu")'>Domů</button>
     </div>
     `
     ZobrazHTML(html)
+}
+
+function FormatujCas(hodiny, minuty) {
+    var cas
+    var hodina
+    var minuta
+    if (hodiny < 10) {
+        hodina = "0" + String(hodiny)
+        
+    }
+    else {
+        hodina = String(hodiny)
+    }
+
+    if (minuty < 10) {
+        minuta = ":" + "0" + String(minuty)
+    }
+    else {
+        minuta = ":" + String(minuty)
+    }
+    return hodina + minuta
 }
 
 function ObrazovkaVypis(SeznamKadernictvi) {
@@ -189,6 +218,7 @@ function ObrazovkaHomepageKadernik() {
         <h2>${zarizeni.Kadernictvi.NazevProvozovny}</h2>
         <h4>${zarizeni.Kadernictvi.Adresa}</h4>
         <button onclick='zpracujUdalost("DatOSobeVedet")'>Dát o sobě vědět</button>
+        <button onclick='zpracujUdalost("Zadosti")'>Žádosti</button>
         <button onclick='zpracujUdalost("SmazZarizeni")'>Smaž zařízení</button>  
         <p>Hodnocení</p>
         `
@@ -285,6 +315,17 @@ function ObrazovkaOdpovedZadostKadernik() {
     ZobrazHTML(html)
 
 
+}
+
+function ObrazovkaZadosti (){
+
+    var html
+    html = `
+    <div class="Obrazovka" id="ObrazovkaZadosti">
+    <p>Seznam</p>
+    </div>
+    `
+    ZobrazHTML(html)
 }
 
 function ObrazovkaOznameniOVolnu() {
@@ -462,7 +503,10 @@ function zpracujUdalost(udalost, p1, p2, p3) {
             VybratKadernictvi(p1);
             break;
         case "OdeslatZadost":
-            OdeslatZadost();
+            OdeslatZadost(p1);
+            break;
+        case "Zadosti":
+            Zadosti()
             break;
 
         default:
@@ -503,6 +547,11 @@ function SmazZarizeni() {
     spusteniAplikace()
 }
 
+function Zadosti(){
+
+    ObrazovkaZadosti()
+}
+
 
 
 function Domu() {
@@ -526,9 +575,15 @@ function VezmiHodnotu(idObrazovky, idVstupu) {
 }
 
 function loguj(zprava) {
-    const radek = document.createElement("p")
-    radek.textContent = zprava
-    document.querySelector("#loguj").appendChild(radek)
+    if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+
+    }
+    else {
+        const radek = document.createElement("p")
+        radek.textContent = zprava
+        document.querySelector("#loguj").appendChild(radek)
+    }
+
 }
 
 function VybratKadernictvi(idKadernictvi) {
@@ -547,8 +602,16 @@ function RegistrovatProvozovnu() {
 
 }
 
-function OdeslatZadost() {
+async function OdeslatZadost(idKadernictvi) {
 
+    const UdajeZadosti = {
+        Pozadavek: VezmiHodnotu("ObrazovkaOdeslaniZadosti", "zakazPozadavek"),
+        Cas: VezmiHodnotu("ObrazovkaOdeslaniZadosti", "zakazVkolik"),
+        idKadernictvi: idKadernictvi
+    }
+
+    await server.OdeslaniZadost(UdajeZadosti)
+    console.log(UdajeZadosti)
 
 }
 

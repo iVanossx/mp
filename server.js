@@ -44,6 +44,12 @@ var server = {
         }
         console.log("Nenalezene kadeřnictví při přihlašování")
         return null
+    },
+
+    OdeslaniZadost: function(UdajeZadosti){
+
+        
+        
     }
 
 
