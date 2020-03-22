@@ -51,7 +51,8 @@ let localStorage={}
 // manage persistence - nahrat pri startu a ukladat pravidelne
 const storageFile=process.env.STORAGE_FILE||"localStorage"
 try {
-    fs.readFileSync(storageFile)
+    const storageRaw=fs.readFileSync(storageFile)
+    localStorage=JSON.parse(storageRaw)
     console.log(`nactena databaze ${storageFile}`)
 } catch(err){
     console.log(`soubor s databazi nenalezen - zacinam s prazdnou`)
