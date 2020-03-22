@@ -8,7 +8,7 @@ var server = {
 
     HledejKadernictvi: function (parametryVyhledavani) {
 
-        const dbKadernictvi = this.dbServer.VyzvSeznamKadernictvi()
+        const dbKadernictvi = this.dbServer.Vyzvedni("SeznamKadernictvi")
         for (const idKadernictvi of Object.keys(dbKadernictvi)) {
             const Kadernictvi = dbKadernictvi[idKadernictvi]
             OdebratCitliveUdaje(Kadernictvi)
@@ -18,15 +18,15 @@ var server = {
     },
 
     RegistraceKadernictvi: function (udajeregistrace) {
-        const dbKadernictvi = this.dbServer.VyzvSeznamKadernictvi()
+        const dbKadernictvi = this.dbServer.Vyzvedni("SeznamKadernictvi")
         dbKadernictvi[udajeregistrace.id] = udajeregistrace
-        this.dbServer.UlozSeznamKadernictvi(dbKadernictvi)
+        this.dbServer.Uloz("SeznamKadernictvi",dbKadernictvi)
 
     },
 
     Prihlaseni: function (PrihlasUdaje) {
 
-        const dbKadernictvi = this.dbServer.VyzvSeznamKadernictvi()
+        const dbKadernictvi = this.dbServer.Vyzvedni("SeznamKadernictvi")
         for (const idKadernictvi of Object.keys(dbKadernictvi)) {
 
             const Kadernictvi = dbKadernictvi[idKadernictvi]

@@ -370,19 +370,19 @@ const db = {
 
 
 const dbServer = {
-    VyzvSeznamKadernictvi: function () {
-        var json = localStorage["SeznamKadernictvi"];
+    Vyzvedni: function (nazevZaznamu) {
+        var json = localStorage[nazevZaznamu];
         if (json) {
-            var SeznamKadernictvi = JSON.parse(json)
-            return SeznamKadernictvi;
+            var zaznam = JSON.parse(json)
+            return zaznam;
         }
         else {
             return {}
         }
     },
 
-    UlozSeznamKadernictvi: function (SeznamKadernictvi) {
-        localStorage["SeznamKadernictvi"] = JSON.stringify(SeznamKadernictvi, null, 4);
+    Uloz: function (nazevZaznamu, obsahZaznamu) {
+        localStorage["nazevZaznamu"] = JSON.stringify(obsahZaznamu, null, 4);
     }
 
 }

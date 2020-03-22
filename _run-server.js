@@ -15,6 +15,36 @@ const requestListener = function (req, res) {
   }
 }
 
+// sleduj soubory ve slozce a kdyz se zmeni, ukonci se
+let lastStartTime = new Date().getTime()
+async function checkFiles(){
+    try {
+        console.log("checking files for update")
+        const dir="."
+        const entries = await fsProm.readdir(dir, {withFileTypes:true})
+        for ( const entry of entries ){
+            if (entry.isFile()){
+                if (/^[^.]+\.[^.]+$/.exec(entry.name)) {
+                    const stat = await fsProm.stat(path.join(dir,entry.name))
+                    if (stat.mtime>lastStartTime){
+                        console.log(`application file change detected ${entry.name} - exiting app to restart`)
+                        saveStorage();
+                        process.exit(0)
+                    }
+                }
+            }
+        }    
+    }
+    catch (err) {
+        console.log("failed to watch files")
+    }
+}
+setInterval(()=>{
+    checkFiles()
+}, 10000)
+
+
+
 
 //serverova implementace databaze
 let localStorage={}
@@ -27,27 +57,31 @@ try {
     console.log(`soubor s databazi nenalezen - zacinam s prazdnou`)
 } 
 
-setInterval(()=>{
+function saveStorage(){
     fs.writeFileSync(storageFile,JSON.stringify(localStorage,null, "  "))
+}
+
+setInterval(()=>{
     //console.log(`dtabaze ulozena ${storageFile}`)
+    saveStorage()
 }, 5000)
 
-
 const dbServer = {
-    VyzvSeznamKadernictvi: function () {
-        var json = localStorage["SeznamKadernictvi"];
+    Vyzvedni: function (nazevZaznamu) {
+        var json = localStorage[nazevZaznamu];
         if (json) {
-            var SeznamKadernictvi = JSON.parse(json)
-            return SeznamKadernictvi;
+            var zaznam = JSON.parse(json)
+            return zaznam;
         }
         else {
             return {}
         }
     },
 
-    UlozSeznamKadernictvi: function (SeznamKadernictvi) {
-        localStorage["SeznamKadernictvi"] = JSON.stringify(SeznamKadernictvi, null, 4);
+    Uloz: function (nazevZaznamu, obsahZaznamu) {
+        localStorage["nazevZaznamu"] = JSON.stringify(obsahZaznamu, null, 4);
     }
+
 }
 
 serverImpl.OverrideDb(dbServer)
