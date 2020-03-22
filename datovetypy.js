@@ -317,14 +317,31 @@ function ObrazovkaOdpovedZadostKadernik() {
 
 }
 
-function ObrazovkaZadosti() {
-
+function ObrazovkaZadosti(SeznamZadosti) {
+    var SeznamHTML = ""
     var html
+
+    for(const idZadosti of Object.keys(SeznamZadosti)){
+        const Zadost = SeznamZadosti[idZadosti]
+        SeznamHTML = `${SeznamHTML} <p onclick='zpracujUdalost("OdpovedNaZadost", "${idZadosti}")'>${Zadost.Pozadavek} ${Zadost.Cas}</p>\n`
+    }
     html = `
     <div class="Obrazovka" id="ObrazovkaZadosti">
-    <p>Seznam</p>
+    ${SeznamHTML}
     <button onclick='zpracujUdalost("Domu")'>Domů</button>
     </div>
+    `
+    ZobrazHTML(html)
+}
+
+function ObrazovkaOdpovedNaZadost(idZadosti){
+    var html
+    var Zadost = window.PosledniVyhledaneZadosti[idZadosti]
+    html = `
+    <div class="Obrazovka" id="ObrazovkaOdpovedNaZadost">
+    <p>${Zadost.Pozadavek} ${Zadost.Cas}</p>
+    <button onclick='zpracujUdalost("Prijmout")'>Přijmout žádost</button>
+    <button onclick='zpracujUdalost("OdmitnoutZadost")'>Odmítnout žádost</button>
     `
     ZobrazHTML(html)
 }
@@ -509,6 +526,9 @@ function zpracujUdalost(udalost, p1, p2, p3) {
         case "Zadosti":
             Zadosti()
             break;
+        case "OdpovedNaZadost":
+            OdpovedNaZadost(p1)
+            break;
 
         default:
 
@@ -535,7 +555,7 @@ async function VyhledatKadernictvi() {
     console.log("parametryVyhledavani:", parametryVyhledavani)
 
 
-    //pri volani serveru misi vzdy byt predrazeno oznackovani await 
+    //pri volani serveru musi vzdy byt predrazeno oznackovani await 
     const vyhledanaKadernictvi = await server.HledejKadernictvi(parametryVyhledavani)
     console.log("Kadernctvi", vyhledanaKadernictvi)
     window.PosledniVyhledanaKadernictvi = vyhledanaKadernictvi
@@ -548,9 +568,19 @@ function SmazZarizeni() {
     spusteniAplikace()
 }
 
-function Zadosti() {
+async function Zadosti() {
+    const Zarizeni = db.VyzvZarizeni()
+    const idKadernictvi = Zarizeni.Kadernictvi.id
+    const MojeZadosti = await server.ZadostiKadernictvi(idKadernictvi)
+    window.PosledniVyhledaneZadosti = MojeZadosti
+    ObrazovkaZadosti(MojeZadosti)
+    
+}
 
-    ObrazovkaZadosti()
+function OdpovedNaZadost(idZadosti){
+
+
+    ObrazovkaOdpovedNaZadost(idZadosti)
 }
 
 
@@ -612,7 +642,7 @@ async function OdeslatZadost(idKadernictvi) {
         idZarizeni: zarizeni.id
     }
 
-    await server.OdeslaniZadost(UdajeZadosti)
+    await server.UlozeniZadost(UdajeZadosti)
     console.log(UdajeZadosti)
 
 }
