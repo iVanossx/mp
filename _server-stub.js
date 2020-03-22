@@ -31,5 +31,5 @@ async function dynacall(name, args){
     } catch {
         console.log(`vracena hodnota nebyla spravne formatvana: ${text}`)
     }
-    return reval    
+    return retval    
 }
