@@ -1,5 +1,6 @@
 version: "2"
 services:
+  strihani:
     image: node
     restart: always
     command: node _run_server.js
@@ -7,13 +8,13 @@ services:
     volumes:
     - .:/work
     labels:
-       # enable traefik processing
-       - "traefik.enable=true"
-       # secure traefik internal service - API
-       - "traefik.http.routers.strih.entrypoints=websecure"
-       - "traefik.http.routers.strih.rule=Host(`${HOSTNAME}.${DOMAINNAME}`)"
-       - "traefik.http.routers.strih.tls=true"
-       - "traefik.http.routers.strih.tls.certresolver=letsencrypt"
+      # enable traefik processing
+      - "traefik.enable=true"
+      # secure traefik internal service - API
+      - "traefik.http.routers.strih.entrypoints=websecure"
+      - "traefik.http.routers.strih.rule=Host(`strihani.pacov.city`)"
+      - "traefik.http.routers.strih.tls=true"
+      - "traefik.http.routers.strih.tls.certresolver=letsencrypt"
 
 networks: 
   default:
