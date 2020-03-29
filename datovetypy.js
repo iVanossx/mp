@@ -302,20 +302,6 @@ function ObrazovkaLoginKadernictvi() {
     ZobrazHTML(html)
 }
 
-function ObrazovkaOdpovedZadostKadernik() {
-    var html
-    html = `
-    <div class="Obrazovka" id="ObrazovkaOdpovedZadostKadernik">
-    <p>Zobrazeni žádosti</p>
-    <button onclick='zpracujUdalost("Prijmout")' id="PrijetiZadosti">Přijmout</button>
-    <button onclick='zpracujUdalost("Odmitnout") id="OdmitnoutZadost">Odmítnout</button>
-    <button onclick='zpracujUdalost("Domu")'>Domů</button>
-    </div>
-    `
-    ZobrazHTML(html)
-
-
-}
 
 function ObrazovkaZadosti(SeznamZadosti) {
     var SeznamHTML = ""
@@ -342,6 +328,7 @@ function ObrazovkaOdpovedNaZadost(idZadosti){
     <p>${Zadost.Pozadavek} ${Zadost.Cas}</p>
     <button onclick='zpracujUdalost("Prijmout")'>Přijmout žádost</button>
     <button onclick='zpracujUdalost("OdmitnoutZadost")'>Odmítnout žádost</button>
+    <button onclick='zpracujUdalost("Domu")'>Domů</button>
     `
     ZobrazHTML(html)
 }
@@ -577,6 +564,16 @@ async function Zadosti() {
     
 }
 
+function prijetiZadosti() {
+    
+    ObrazovkaHomepageKadernik()
+}
+
+function odmutnutiZdaosti() {
+
+    ObrazovkaHomepageKadernik()
+}
+
 function OdpovedNaZadost(idZadosti){
 
 
@@ -644,6 +641,8 @@ async function OdeslatZadost(idKadernictvi) {
 
     await server.UlozeniZadost(UdajeZadosti)
     console.log(UdajeZadosti)
+    alert("Vaše žádost byla odeslána")
+    ObrazovkaHomepageZakaznik()
 
 }
 
@@ -699,10 +698,6 @@ async function ZaregistrovatSe() {
     await server.RegistraceKadernictvi(udajeregistrace)
 
     console.log("udajeregistrace", udajeregistrace)
-
-
-
-
     ObrazovkaLoginKadernictvi()
 }
 
