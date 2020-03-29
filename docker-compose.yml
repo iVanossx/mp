@@ -4,8 +4,7 @@ services:
     image: node
     restart: always
     working_dir: /work
-    command: [ './entry.sh' ]
-    #command: ['bash', '-c', 'while true; do sleep 10; done']
+    command: ['node', '_run-server.js']
     expose:
     - 8080
     volumes:

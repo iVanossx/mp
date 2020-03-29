@@ -82,9 +82,20 @@ function OdebratCitliveUdaje(Kadernictvi) {
 
 
 if (typeof (exports) !== 'undefined') {
+    // console.log("binding exports")
+    // for ( const fn of Object.keys(server)){
+    //     if (typeof(server[fn]) === 'function'){
+    //         console.log(`binding & exporting server function ${fn}: ${server[fn]}`)
+    //         exports[fn]=server[fn].bind(server)    
+    //     }
+    // }
+
     exports.HledejKadernictvi = server.HledejKadernictvi.bind(server)
     exports.RegistraceKadernictvi = server.RegistraceKadernictvi.bind(server)
     exports.Prihlaseni = server.Prihlaseni.bind(server)
     exports.OverrideDb = server.OverrideDb.bind(server)
+    exports.ZadostiKadernictvi = server.ZadostiKadernictvi.bind(server)
+    exports.UlozeniZadost = server.UlozeniZadost.bind(server)
+    // exports. = server..bind(server)
 
 }

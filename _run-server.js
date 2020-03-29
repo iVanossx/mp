@@ -16,27 +16,23 @@ const requestListener = function (req, res) {
 }
 
 // sleduj soubory ve slozce a kdyz se zmeni, ukonci se
-let lastStartTime = new Date().getTime()
+let lastKnownRev
 async function checkFiles(){
     try {
         console.log("checking files for update")
-        const dir="."
-        const entries = await fsProm.readdir(dir, {withFileTypes:true})
-        for ( const entry of entries ){
-            if (entry.isFile()){
-                if (/^[^.]+\.[^.]+$/.exec(entry.name)) {
-                    const stat = await fsProm.stat(path.join(dir,entry.name))
-                    if (stat.mtime>lastStartTime){
-                        console.log(`application file change detected ${entry.name} - exiting app to restart`)
-                        saveStorage();
-                        process.exit(0)
-                    }
-                }
+        const revInfo = JSON.parse(await fsProm.readFile("./rev.json"))
+        if (!lastKnownRev){
+            lastKnownRev=revInfo.rev
+        } else {
+            if ( lastKnownRev !== revInfo.rev ){
+                console.log(`application file change detected old rev: ${lastKnownRev} -> new rev: ${revInfo.rev} - exiting app to restart`)
+                saveStorage();
+                process.exit(0)        
             }
-        }    
+        }
     }
     catch (err) {
-        console.log("failed to watch files")
+        console.log("failed to check revision",err)
     }
 }
 setInterval(()=>{
@@ -51,7 +47,8 @@ let localStorage={}
 // manage persistence - nahrat pri startu a ukladat pravidelne
 const storageFile=process.env.STORAGE_FILE||"localStorage"
 try {
-    fs.readFileSync(storageFile)
+    const storageRaw=fs.readFileSync(storageFile)
+    localStorage=JSON.parse(storageRaw)
     console.log(`nactena databaze ${storageFile}`)
 } catch(err){
     console.log(`soubor s databazi nenalezen - zacinam s prazdnou`)
