@@ -326,7 +326,7 @@ function ObrazovkaOdpovedNaZadost(idZadosti){
     html = `
     <div class="Obrazovka" id="ObrazovkaOdpovedNaZadost">
     <p>${Zadost.Pozadavek} ${Zadost.Cas}</p>
-    <button onclick='zpracujUdalost("Prijmout")'>Přijmout žádost</button>
+    <button onclick='zpracujUdalost("PrijmoutZadost")'>Přijmout žádost</button>
     <button onclick='zpracujUdalost("OdmitnoutZadost")'>Odmítnout žádost</button>
     <button onclick='zpracujUdalost("Domu")'>Domů</button>
     `
@@ -514,7 +514,13 @@ function zpracujUdalost(udalost, p1, p2, p3) {
             Zadosti()
             break;
         case "OdpovedNaZadost":
-            OdpovedNaZadost(p1)
+            OdpovedNaZadost(p1);
+            break;
+        case "PrijmoutZadost":
+            prijetiZadosti();
+            break;
+        case "OdmitnoutZadost":
+            odmutnutiZdaosti();
             break;
 
         default:
@@ -565,7 +571,7 @@ async function Zadosti() {
 }
 
 function prijetiZadosti() {
-    
+
     ObrazovkaHomepageKadernik()
 }
 
