@@ -116,7 +116,7 @@ function ObrazovkaOdeslaniZadosti(Kadernictvi) {
     html = `
     <div class="Obrazovka" id="ObrazovkaOdeslaniZadosti">
     <h3>${Kadernictvi.NazevProvozovny}</h3>
-    <h3>${Kadernictvi.Adresa}<h3>
+    <h3>${Kadernictvi.Adresa}</h3>
     <p>Nazev, cena, atd.</p>
     <p>Požadavek</p>
     <input type="text" id="zakazPozadavek">
