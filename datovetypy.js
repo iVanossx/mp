@@ -68,7 +68,7 @@ function vytvorNoveZarizeni() {
 function ZobrazHTML(html) {
     document.querySelector("#obsah").innerHTML = html
     //zobrazi jmeno obrazovky
-    document.querySelector("#jmeno-obrazovky").textContent = arguments.callee.caller.name
+    //document.querySelector("#jmeno-obrazovky").textContent = arguments.callee.caller.name
 }
 
 function ObrazovkaHomepageZakaznik() {
@@ -117,7 +117,6 @@ function ObrazovkaOdeslaniZadosti(Kadernictvi) {
     <div class="Obrazovka" id="ObrazovkaOdeslaniZadosti">
     <h3>${Kadernictvi.NazevProvozovny}</h3>
     <h3>${Kadernictvi.Adresa}</h3>
-    <p>Nazev, cena, atd.</p>
     <p>Požadavek</p>
     <input type="text" id="zakazPozadavek">
     <p>V kolik</p>
