@@ -46,6 +46,7 @@ button{
     width: 90%;
     text-align: center;
     font-size: 200%;
+    box-sizing: border-box;
 }
 #jmenaobrazovky{
     
