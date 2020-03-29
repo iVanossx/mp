@@ -36,10 +36,11 @@ button{
     align-items: center;
 }
 .klikaciMisto{
+    padding-top: 15px;
+    padding-bottom: 15px;
     background-color: lightgray;
-    border-width: 20px;
+    border-width: 90%;
     border-color: gray;
-    border-width: 2px;
     border-style: solid;
 }
 #jmenaobrazovky{
