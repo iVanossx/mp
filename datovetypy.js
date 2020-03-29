@@ -158,7 +158,7 @@ function ObrazovkaVypis(SeznamKadernictvi) {
         const Kadernictvi = SeznamKadernictvi[idKadernictvi]
 
         //Seznam = Seznam + " " + "<p>" + Kadernictvi.NazevProvozovny + "</p>\n"
-        Seznam = `${Seznam} <p onclick='zpracujUdalost("VybratKadernictvi","${Kadernictvi.id}")'> ${Kadernictvi.NazevProvozovny}, ${Kadernictvi.Adresa} </p>\n`
+        Seznam = `${Seznam} <p class="klikaciMisto" onclick='zpracujUdalost("VybratKadernictvi","${Kadernictvi.id}")'> ${Kadernictvi.NazevProvozovny}, ${Kadernictvi.Adresa} </p>\n`
 
 
     }
@@ -309,7 +309,7 @@ function ObrazovkaZadosti(SeznamZadosti) {
 
     for(const idZadosti of Object.keys(SeznamZadosti)){
         const Zadost = SeznamZadosti[idZadosti]
-        SeznamHTML = `${SeznamHTML} <p onclick='zpracujUdalost("OdpovedNaZadost", "${idZadosti}")'>${Zadost.Pozadavek} ${Zadost.Cas}</p>\n`
+        SeznamHTML = `${SeznamHTML} <p class="klikaciMisto" onclick='zpracujUdalost("OdpovedNaZadost", "${idZadosti}")'>${Zadost.Pozadavek} ${Zadost.Cas}</p>\n`
     }
     html = `
     <div class="Obrazovka" id="ObrazovkaZadosti">

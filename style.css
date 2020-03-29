@@ -18,11 +18,12 @@
 
     
 }
-#ObrazovkaRozhodnuti button{
+button{
     background-color:lightgray;
-    width: 90vw;
-    height: 30vh;
-    margin: 10px;
+    border-width: 2px;
+    border-color: gray;
+    margin: 5px;
+    
     
     
 
@@ -32,4 +33,11 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+}
+.klikaciMisto{
+    background-color: lightgray;
+    border-width: 20px;
+    border-color: gray;
+    border-style: solid;
+    border-width: 2px;
 }
