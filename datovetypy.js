@@ -166,6 +166,7 @@ function ObrazovkaVypis(SeznamKadernictvi) {
     html = `<div class="Obrazovka">
     <h2>Kadeřnictví</h2>
     ${Seznam}
+    <button onclick='zpracujUdalost("Domu")'>Domů</button>
     </div>`
     ZobrazHTML(html)
 }
